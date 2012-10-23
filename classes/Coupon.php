@@ -1,13 +1,16 @@
 <?php
-Class Coupon{
-	global $wpdb;
+if(!defined('JUSTAQUIT_DEALS')){
+	echo 'Hello world.';
+	die();
+}
 
+Class Coupon{
 	private $order_id;
 	private $coupon_date;
 	private $code;
 	private $status;
 	private $usage_date;
-	private static $table = $wpdb->prefix.'coupons';
+	private static $table = 'wp_coupons';
 
 	public function __construct($order_id){
 		$this->order_id = $order_id;
@@ -21,11 +24,11 @@ Class Coupon{
 		$this->set_code();
 
 		$data = array(
-			'order_id' = $this->order_id,
-			'coupon_date'	= $this->coupon_date,
-			'code' => $this->code,
-			'status' => $this->status,
-			'usage_date' = 0
+			'order_id'    => $this->order_id,
+			'coupon_date' => $this->coupon_date,
+			'code'        => $this->code,
+			'status'      => $this->status,
+			'usage_date'  => 0
 		);
 		$format = array('%d', '%d', '%s', '%d', '%d');
 
@@ -51,12 +54,12 @@ Class Coupon{
 
 		if($this->exists($ID)){
 			$data = array(
-				'status'     => 1
+				'status'     => 1,
 				'usage_date' => strtotime(current_time('mysql'))
 			);
 			$where = array(
 				'ID' => $ID
-			)
+			);
 			$format = array('%d', '%d');
 			$wpdb->update($data, $this->table, $where, $format);
 			

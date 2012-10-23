@@ -1,14 +1,17 @@
 <?php
-Class Order{
-	global $wpdb;
+if(!defined('JUSTAQUIT_DEALS')){
+	echo 'Hello world.';
+	die();
+}
 
+Class Order{
 	private $email;
 	private $first_name;
 	private $last_name;
 	private $post_id;
 	private $amount;
 	private $date_time;
-	private static $table = $wpdb->prefix.'orders';
+	private static $table = 'wp_orders';
 
 	public function __construct($email, $first_name, $last_name, $post_id, $amount){
 		$this->email      = $email;
@@ -58,7 +61,7 @@ Class Order{
 				'last_name'  => $this->last_name,
 			);
 			$where = array(
-				'ID' = $ID	
+				'ID' => $ID	
 			);
 			$format = array('%s', '%s');
 			$wpdb->update($data, $this->table, $where, $format);

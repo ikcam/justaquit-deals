@@ -1,12 +1,15 @@
 <?php
-Class Transaction{
-	global $wpdb;
+if(!defined('JUSTAQUIT_DEALS')){
+	echo 'Hello world.';
+	die();
+}
 
+Class Transaction{
 	private $order_id;
 	private $amount;
 	private $txn_id;
 	private $status;
-	private static $table = $wpdb->prefix.'transactions';
+	private static $table = 'wp_transactions';
 
 	public function __construct($order_id, $amount, $xtxn_id, $status){
 		$this->order_id = $order_id;

@@ -1,0 +1,23 @@
+table.table-checkout{
+	width:80%;
+	margin:0 10% 20px;
+}
+table.table-checkout td.thumb{
+	width:110px;
+}
+table.table-checkout td.price{
+	text-align:right;
+}
+table.table-checkout tr.total td{
+	border-top: 1px solid #000;
+}
+div.countdown{
+	background: #fe6b76;
+	border:1px solid #000;
+	border-radius:5px;
+	margin:0 10%;
+	font-weight:bold;
+	padding: .3em 0;
+	text-align:center;
+	width:80%;
+}

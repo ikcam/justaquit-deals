@@ -10,7 +10,6 @@ Class Coupon{
 	private $code;
 	private $status;
 	private $usage_date;
-	private static $table = 'wp_coupons';
 
 	public function __construct($order_id){
 		$this->order_id = $order_id;
@@ -20,6 +19,7 @@ Class Coupon{
 
 	public function add_coupon(){
 		global $wpdb;
+		$table = $wpdb->prefix.'coupons';
 
 		$this->set_code();
 
@@ -32,16 +32,17 @@ Class Coupon{
 		);
 		$format = array('%d', '%d', '%s', '%d', '%d');
 
-		$wpdb->insert($this->table, $data, $format);
+		$wpdb->insert($table, $data, $format);
 
 		return $wpdb->insert_id;
 	}
 
 	public static function delete_coupon($ID){
 		global $wpdb;
+		$table = $wpdb->prefix.'coupons';
 
 		if($this->exists($ID)){
-			$query = "DELETE FROM $this->table WHERE ID = %d;";
+			$query = "DELETE FROM $table WHERE ID = %d;";
 			$wpdb->query($wpdb->prepare($query, $ID));
 			return TRUE;
 		} else {
@@ -51,6 +52,7 @@ Class Coupon{
 
 	public static function set_active($ID){
 		global $wpdb;
+		$table = $wpdb->prefix.'coupons';
 
 		if($this->exists($ID)){
 			$data = array(
@@ -61,7 +63,7 @@ Class Coupon{
 				'ID' => $ID
 			);
 			$format = array('%d', '%d');
-			$wpdb->update($data, $this->table, $where, $format);
+			$wpdb->update($data, $table, $where, $format);
 			
 			return TRUE;
 		} else {
@@ -88,12 +90,13 @@ Class Coupon{
 
 	private function exists($ID=NULL){
 		global $wpdb;
+		$table = $wpdb->prefix.'coupons';
 
 		if($ID==NULL){
-			$query = "SELECT COUNT(*) FROM $this->table WHERE code = %s;";
+			$query = "SELECT COUNT(*) FROM $table WHERE code = %s;";
 			$count = $wpdb->query($wpdb->prepare($query, $this->code));
 		} else {
-			$query = "SELECT COUNT(*) FROM $this->table WHERE ID = %d;";
+			$query = "SELECT COUNT(*) FROM $table WHERE ID = %d;";
 			$count = $wpdb->query($wpdb->prepare($query, $ID));
 		}
 

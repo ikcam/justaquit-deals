@@ -11,7 +11,6 @@ Class Order{
 	private $post_id;
 	private $amount;
 	private $date_time;
-	private static $table = 'wp_orders';
 
 	public function __construct($email, $first_name, $last_name, $post_id, $amount){
 		$this->email      = $email;
@@ -24,6 +23,7 @@ Class Order{
 
 	public function add_order(){
 		global $wpdb;
+		$table = $wpdb->prefix.'orders';
 
 		$data = array(
 			'email'      => $this->email,
@@ -34,7 +34,7 @@ Class Order{
 			'datetime'   => $this->datetime
 		);
 		$format = array('%s', '%s', '%s', '%d', '%d', '%d');
-		$wpdb->insert($this->table, $data, $format);
+		$wpdb->insert($table, $data, $format);
 
 		return $wpdb->insert_id;
 	}
@@ -43,7 +43,7 @@ Class Order{
 		global $wpdb;
 
 		if( $this->exists($ID) ){
-			$query = "DELETE FROM $this->table WHERE ID = %d";
+			$query = "DELETE FROM $table WHERE ID = %d";
 			$wpdb->query($wpdb->prepare($query, $ID));
 			return TRUE;
 		} else {
@@ -53,6 +53,7 @@ Class Order{
 
 	public function update_order($ID){
 		global $wpdb;
+		$table = $wpdb->prefix.'orders';
 
 		if($this->exists($ID)){
 			$data = array(
@@ -64,7 +65,7 @@ Class Order{
 				'ID' => $ID	
 			);
 			$format = array('%s', '%s');
-			$wpdb->update($data, $this->table, $where, $format);
+			$wpdb->update($data, $table, $where, $format);
 			return TRUE;
 		} else {
 			return FALSE;
@@ -73,8 +74,9 @@ Class Order{
 
 	private function exists($ID){
 		global $wpdb;
+		$table = $wpdb->prefix.'orders';
 
-		$query = "SELECT COUNT(*) FROM $this->table WHERE ID = %d;";
+		$query = "SELECT COUNT(*) FROM $table WHERE ID = %d;";
 		$count = $wpdb->get_var($wpdb->prepare($query, $ID));
 
 		if($count>0)

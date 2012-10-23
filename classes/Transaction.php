@@ -9,7 +9,6 @@ Class Transaction{
 	private $amount;
 	private $txn_id;
 	private $status;
-	private static $table = 'wp_transactions';
 
 	public function __construct($order_id, $amount, $xtxn_id, $status){
 		$this->order_id = $order_id;
@@ -20,6 +19,7 @@ Class Transaction{
 
 	public function add_transaction(){
 		global $wpdb;
+		$table = $wpdb->prefix.'transactions';
 
 		if($this->exists()){
 			$data = array(
@@ -29,7 +29,7 @@ Class Transaction{
 				'status' => $this->status
 			);
 			$format = array('%d', '%d', '%d', '%d');
-			$wpdb->insert($this->table, $data, $format);
+			$wpdb->insert($table, $data, $format);
 			return $wpdb->insert_id;
 		} else {
 			return FALSE;
@@ -38,9 +38,10 @@ Class Transaction{
 
 	public static function delete_function($ID){
 		global $wpdb;
+		$table = $wpdb->prefix.'transactions';
 
 		if($this->exists($ID)){
-			$query = "DELETE FROM $this->table WHERE ID = %d;";
+			$query = "DELETE FROM $table WHERE ID = %d;";
 			$wpdb->query($wpdb->prepare($query, $ID));
 			return TRUE;
 		} else {
@@ -50,12 +51,13 @@ Class Transaction{
 
 	private function exists($ID=NULL){
 		global $wpdb;
+		$table = $wpdb->prefix.'transactions';
 
 		if($ID==NULL){
-			$query = "SELECT COUNT(*) FROM $this->table WHERE order_id = %d;";
+			$query = "SELECT COUNT(*) FROM $table WHERE order_id = %d;";
 			$count = $wpdb->get_var($wpdb->prepare($query, $this->order_id));
 		} else {
-			$query = "SELECT COUNT(*) FROM $this->table WHERE ID = %d;";
+			$query = "SELECT COUNT(*) FROM $table WHERE ID = %d;";
 			$count = $wpdb->get_var($wpdb->prepare($query, $ID));
 		}
 

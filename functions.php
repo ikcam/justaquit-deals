@@ -72,4 +72,24 @@ function is_active($ID=NULL){
 	else
 		return FALSE;
 }
+
+function parse_from_format($format, $date) {
+	$dMask = array(
+		'H'=>'hour',
+		'i'=>'minute',
+		's'=>'second',
+		'y'=>'year',
+		'm'=>'month',
+		'd'=>'day'
+	);
+  
+  $format = preg_split('//', $format, -1, PREG_SPLIT_NO_EMPTY);  
+  $date = preg_split('//', $date, -1, PREG_SPLIT_NO_EMPTY);  
+  
+  foreach ($date as $k => $v) {
+    if ($dMask[$format[$k]]) $dt[$dMask[$format[$k]]] .= $v;
+  }
+  
+  return $dt;
+}
 ?>

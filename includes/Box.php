@@ -5,8 +5,6 @@ if(!defined('JUSTAQUIT_DEALS')){
 }
 
 Class Box{
-	private static $settings;
-
 	public function __construct(){
 		add_action('add_meta_boxes', array( $this, 'add'));
 		add_action('save_post', array($this, 'save'));
@@ -14,7 +12,7 @@ Class Box{
 		add_action('admin_enqueue_scripts', array( $this, 'stylesheets'));
 	}
 
-	private function box( $post ){
+	public function box( $post ){
 		wp_nonce_field(plugin_basename(__FILE__), 'justaquit_deals');
 ?>
 <?php
@@ -99,7 +97,7 @@ Class Box{
 		<input type="text" readonly disabled value="<?php echo $value ?>" />
 	</p>
 <?php
-	if(ja_deal_active($post->ID))
+	if(is_active($post->ID))
 		$value = 'Active';
 	else
 		$value = 'Expired';
@@ -111,7 +109,7 @@ Class Box{
 <?php
 	}
 
-	private function save( $post_id ) {
+	public function save( $post_id ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
 			return;
 
@@ -162,20 +160,20 @@ Class Box{
 		add_post_meta($post_id, '_product_expire', $expire, TRUE)         or update_post_meta($post_id, '_product_expire', $expire);
 	}
 
-	private function scripts(){
+	public function scripts(){
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-datepicker');
-		wp_enqueue_script('jquery-ui-timepicjer', plugins_url('javascript/timepicker.jquery.js',__FILE__));
-		wp_enqueue_script('ja-deals-admin', plugins_url('javascript/admin,jquery.js', __FILE__));
+		wp_enqueue_script('jquery-ui-timepicjer', plugin_dir_url(__FILE__).'../javascript/timepicker.jquery.js');
+		wp_enqueue_script('ja-deals-admin', plugin_dir_url(__FILE__).'../javascript/admin.jquery.js');
 	}
 
-	private function stylesheets(){
-		wp_register_style( 'ja-deals-admin', plugins_url('css/admin.jquery.css', __FILE__), false, '1.8.23' );
+	public function stylesheets(){
+		wp_register_style( 'ja-deals-admin', plugin_dir_url(__FILE__).'../stylesheet/admin.jquery.css', false, '1.8.23' );
 		wp_enqueue_style( 'ja-deals-admin' );
 	}
 
-	private function add(){
+	public function add(){
 		add_meta_box( 'deals_post_box', 'Deal Information', array($this, 'box'), 'post', 'side', 'high' );
 	}
 }

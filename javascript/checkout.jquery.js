@@ -7,7 +7,6 @@ jQuery(document).ready(function($){
 		total			= total - price;
 		$(this).parents('tr').fadeOut('slow', function(){
 			var position = $(this).find('input').attr('disabled', 'disabled');
-			console.log(position);
 			$('#total').html(total);
 		});
 	});

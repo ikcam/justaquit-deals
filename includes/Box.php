@@ -28,7 +28,7 @@ Class Box{
 	</p>
 <?php
 	if(!get_post_meta($post->ID, '_product_price_real', TRUE))
-		$value = 0;
+		$value = $settings['price_real'];
 	else
 		$value = get_post_meta($post->ID, '_product_price_real', TRUE);
 ?>
@@ -38,7 +38,7 @@ Class Box{
 	</p>
 <?php 
 	if (!get_post_meta($post->ID, '_product_price_max', TRUE))
-		$value = $settings['default_max_price'];
+		$value = $settings['price_max'];
 	else
 		$value = get_post_meta($post->ID, '_product_price_max', TRUE);
 ?>
@@ -48,7 +48,7 @@ Class Box{
 	</p>
 <?php
 	if(!get_post_meta($post->ID, '_product_price_min', TRUE))
-		$value = $settings['default_min_price'];
+		$value = $settings['price_min'];
 	else
 		$value = get_post_meta($post->ID, '_product_price_min', TRUE);
 ?>

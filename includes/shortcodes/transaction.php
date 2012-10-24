@@ -49,10 +49,9 @@ Class shortcode_transaction{
 				$price = get_price_by_time($ID, $time_buy);
 
 				$order = new Order($contact_email, $contact_first_name, $contact_last_name, $ID, $price, $time_buy);
-				$order_id = $order->add_order();
+				$order = get_order($order->add_order());
 
 				if( $order_id ) :
-					$order = get_order($order_id);
 					$post  = get_post($order->post_id);
 					$url  = 'https://www.paypal.com/cgi-bin/webscr?business=mydealisideal@gmail.com&cmd=_xclick&currency_code=USD';
 					$url .= '&amount='.$order->amount;

@@ -10,6 +10,8 @@ Class shortcode_ipn{
 	}
 
 	public function shortcode(){
+		$settings = get_option('justaquit_deals')
+
 		$raw_post_data = file_get_contents('php://input');
 		$raw_post_array = explode('&', $raw_post_data);
 		$myPost = array();
@@ -61,7 +63,6 @@ Class shortcode_ipn{
 			// check the payment_status is Completed
 			if( $payment_status == 'Completed' ) :
 				// check that txn_id has not been previously processed
-				
 				if( !Transaction::verify_txnid($txn_id) ) :
 					// check that receiver_email is your Primary PayPal email
 					if( $receiver_email == 'mydealisideal@gmail.com' ) :
@@ -86,6 +87,7 @@ Class shortcode_ipn{
 							$mail_message .= 'Thank you for purchase a promotion at '.get_bloginfo()."\n";
 							$mail_message .= 'Problems? '.get_bloginfo('admin_email')."\n";
 							$headers[]    = 'From: '.get_bloginfo().' <'.get_bloginfo('admin_email').'>';
+
 							wp_mail( $mail_to, $mail_subject, $mail_message, $headers );
 							wp_mail( get_bloginfo('admin_email'), $mail_subject, $mail_message, $headers );
 						endif;

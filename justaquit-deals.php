@@ -9,5 +9,11 @@ Author URI: http://ikcam.com
 License: GPL2
 */
 ?>
-<?php define('JUSTAQUIT_DEALS', TRUE) ?>
-<?php include('main.php'); ?>
+<?php
+define('JUSTAQUIT_DEALS', TRUE)
+
+include('main.php');
+
+register_activation_hook( __FILE__, array( 'deals_install', 'install' ) );
+
+?>

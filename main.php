@@ -6,6 +6,9 @@ if(!defined('JUSTAQUIT_DEALS')){
 // Functions
 require_once('functions.php');
 
+// Install
+require_once('includes/Install.php');
+
 // Classes
 require_once('classes/Coupon.php');
 require_once('classes/Order.php');

@@ -113,16 +113,23 @@ Class Box{
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
 			return;
 
-		if ( !wp_verify_nonce($_POST['justaquit_deals'], plugin_basename(__FILE__)) )
-			return;
+		if(isset($_POST['justaquit_deals'])):
+			if(!wp_verify_nonce($_POST['justaquit_deals'], plugin_basename(__FILE__)))
+				return;
 
-		if ( 'page' == $_POST['post_type'] ) {
-			if ( !current_user_can( 'edit_page', $post_id ) )
-				return;
-		} else {
-			if ( !current_user_can( 'edit_post', $post_id ) )
-				return;
-		}
+			if('page' == $_POST['post_type']):
+				if(!current_user_can('edit_page', $post_id)):
+					return;
+				endif;
+			else:
+				if(!current_user_can('edit_post', $post_id)):
+					return;
+				endif;
+			endif;
+		else:
+			return;
+		endif;
+		$post = get_post($post_id);
 
 		$quantity    = $_POST['quantity'];
 		$price_real  = $_POST['price_real'];

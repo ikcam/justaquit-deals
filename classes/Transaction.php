@@ -49,6 +49,19 @@ Class Transaction{
 		}
 	}
 
+	public static function verify_txnid($txnid){
+		global $wpdb;
+		$table = $wpdb->prefix.'transaction';
+
+		$query = "SELECT COUNT(*) FROM $table WHERE txn_id = %s;";
+		$count = $wpdb->get_var($wpdb->prepare($query, $txnid));
+
+		if($count>0)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
 	private function exists($ID=NULL){
 		global $wpdb;
 		$table = $wpdb->prefix.'transactions';

@@ -12,13 +12,13 @@ Class Order{
 	private $amount;
 	private $date_time;
 
-	public function __construct($email, $first_name, $last_name, $post_id, $amount){
+	public function __construct($email, $first_name, $last_name, $post_id, $amount, $datetime){
 		$this->email      = $email;
 		$this->first_name = $first_name;
 		$this->last_name  = $last_name;
 		$this->post_id    = $post_id;
 		$this->amount     = $amount;
-		$this->datetime   = strtotime(current_time('mysql'));
+		$this->datetime   = $datetime;
 	}
 
 	public function add_order(){
@@ -31,7 +31,7 @@ Class Order{
 			'last_name'  => $this->last_name,
 			'post_id'    => $this->post_id,
 			'amount'     => $this->amount,
-			'datetime'   => $this->datetime
+			'date_time'  => $this->datetime
 		);
 		$format = array('%s', '%s', '%s', '%d', '%d', '%d');
 		$wpdb->insert($table, $data, $format);

@@ -67,6 +67,15 @@ function get_coupon_by_order($ID){
 	return $wpdb->get_row($wpdb->prepare($query, $ID));
 }
 
+function get_coupon_by_code($code){
+	global $wpdb;
+	$table = $wpdb->prefix.'coupons';
+
+	$query = "SELECT * FROM TABLE WHERE code = %s;";
+
+	return $wpdb->get_row($wpdb->prepare($query, $code));
+}
+
 function get_coupons(){
 	global $wpdb;
 	$table = $wpdb->prefix.'coupons';

@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: JustAquit Products
+Plugin Name: JustAquit Deals
 Plugin URI: http://justaquit.com
 Description: This plugins allows you to use your WordPress installation as a offers system.
 Version: 2.0

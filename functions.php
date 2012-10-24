@@ -225,17 +225,21 @@ function get_inputs($ID=NULL){
 function get_order_status($ID){
 	$transaction = get_transaction_by_order($ID);
 
-	switch($transaction->status){
-		case 1:
-			$output = 'Pending';
-			break;
-		case 2:
-			$output = 'Incomplete';
-			break;
-		case 3:
-			$output = 'Complete';
-			break;
-	}
+	if(is_object($transaction)):
+		switch($transaction->status){
+			case 1:
+				$output = 'Pending';
+				break;
+			case 2:
+				$output = 'Incomplete';
+				break;
+			case 3:
+				$output = 'Complete';
+				break;
+		}
+	else:
+		$output = 'Pending';
+	endif;
 
 	return $output;
 }

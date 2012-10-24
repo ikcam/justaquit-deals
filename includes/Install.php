@@ -15,7 +15,7 @@ Class deals_install{
 			first_name varchar(255) NOT NULL,
 			last_name varchar(255) NOT NULL,
 			post_id mediumint(9) NOT NULL,
-			amount decimal(8,2) NOT NULL
+			amount decimal(8,2) NOT NULL,
 			date_time bigint(20) NOT NULL, 
 			UNIQUE KEY ID (ID)
 		);";

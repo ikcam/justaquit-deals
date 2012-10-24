@@ -43,6 +43,7 @@ Class Settings extends Deals{
 		</tr>
 	</tbody>
 	</table>
+	<p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="<?php _e('Save Changes') ?>"></p>
 	</form>
 </div>
 <?php

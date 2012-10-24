@@ -11,11 +11,12 @@ Class shortcode_checkout{
 	}
 
 	public function shortcode(){
-		if( isset($_POST['the_id']) )
+		if( isset($_POST['the_id']) ):
 			$ID  = $_POST['the_id'];
 			$error = 0;
-		else
+		else:
 			$error = 1;
+		endif;
 		if( isset($_POST['time_current']) )
 			$product_time_buy = $_POST['time_current'];
 		else

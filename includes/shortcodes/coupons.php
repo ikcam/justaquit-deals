@@ -10,7 +10,7 @@ Class shortcode_coupons{
 	}
 
 	public function shortcode(){
-		if( wp_verify_nonce($_POST['deals'],'deals') ) :
+		if( wp_verify_nonce($_GET['deals'],'deals') ) :
 			$code   = $_GET['code'];
 			$coupon = get_coupon_by_code($code);
 			// Verify if coupon exists

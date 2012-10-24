@@ -10,7 +10,7 @@ Class shortcode_ipn{
 	}
 
 	public function shortcode(){
-		$settings = get_option('justaquit_deals')
+		$settings = get_option('justaquit_deals');
 
 		$raw_post_data = file_get_contents('php://input');
 		$raw_post_array = explode('&', $raw_post_data);
@@ -65,7 +65,7 @@ Class shortcode_ipn{
 				// check that txn_id has not been previously processed
 				if( !Transaction::verify_txnid($txn_id) ) :
 					// check that receiver_email is your Primary PayPal email
-					if( $receiver_email == 'mydealisideal@gmail.com' ) :
+					if( $receiver_email == $settings['paypal_account'] ) :
 						// check that payment_amount/payment_currency are correct
 						$order = get_order( $item_number );
 						if( $order->amount == $payment_amount ) :
@@ -96,7 +96,8 @@ Class shortcode_ipn{
 			endif;
 		} else if (strcmp ($res, "INVALID") == 0) {
 			// log for manual investigation
-			echo 'nada que ver';
+			$transaction = new Transaction($item_number, 0, NULL, 1);
+			$transaction->add_transaction();
 		}
 	}
 }

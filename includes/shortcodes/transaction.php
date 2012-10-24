@@ -51,9 +51,10 @@ Class shortcode_transaction{
 				$order = new Order($contact_email, $contact_first_name, $contact_last_name, $ID, $price, $time_buy);
 				$order = get_order($order->add_order());
 
-				if( $order_id ) :
+				if( is_object($order) ) :
+					$settings = get_option('justaquit_deals');
 					$post  = get_post($order->post_id);
-					$url  = 'https://www.paypal.com/cgi-bin/webscr?business=mydealisideal@gmail.com&cmd=_xclick&currency_code=USD';
+					$url  = 'https://www.paypal.com/cgi-bin/webscr?business='.$settings['paypal_account'].'&cmd=_xclick&currency_code=USD';
 					$url .= '&amount='.$order->amount;
 					$url .= '&item_name='.$post->post_title;
 					$url .= '&item_number='.$order->ID;

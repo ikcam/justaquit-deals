@@ -10,7 +10,7 @@ License: GPL2
 */
 ?>
 <?php
-define('JUSTAQUIT_DEALS', TRUE)
+define('JUSTAQUIT_DEALS', TRUE);
 
 include('main.php');
 

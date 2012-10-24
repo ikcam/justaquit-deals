@@ -41,7 +41,4 @@ $deals_shortcode = new shortcode_checkout();
 $deals_shortcode = new shortcode_transaction();
 $deals_shortcode = new shortcode_ipn();
 $deals_shortcode = new shortcode_coupons();
-// Load
-// 
 ?>
-

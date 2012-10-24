@@ -13,18 +13,18 @@ Class shortcode_checkout{
 	public function shortcode(){
 		if( isset($_POST['the_id']) )
 			$ID  = $_POST['the_id'];
+			$error = 0;
 		else
-			return;
+			$error = 1;
 		if( isset($_POST['time_current']) )
 			$product_time_buy = $_POST['time_current'];
 		else
-			return;
+			$error = 1;
 
-		$server_time_buy = strtotime( current_time('mysql') );
-
+		$server_time_buy = strtotime(current_time('mysql'));
 		$time_remain = 120 - ( $server_time_buy - $product_time_buy );
 
-		if( $time_remain <= 0 && is_active($ID) ):
+		if( $time_remain <= 0 && is_active($ID) && $error == 0 ):
 			echo '<div class="countdown">Sorry, your time has expire, you have to place again your order.</div>';
 			return;
 		else :
@@ -32,7 +32,7 @@ Class shortcode_checkout{
 			$total = 0;
 ?>
 	<form action="<?php bloginfo('url') ?>/store/transaction" method="post">
-		<?php wp_nonce_field('checkout', 'deals_checkout') ?>
+		<?php wp_nonce_field('deals', 'checkout') ?>
 		<input type="hidden" name="time_buy" id="time_buy" value="<?php echo $product_time_buy ?>" />
 		<input type="hidden" name="time_server" id="time_server" value="<?php echo $server_time_buy ?>" />
 		<table class="table-checkout">
@@ -90,7 +90,7 @@ Class shortcode_checkout{
 				<td colspan="5">
 				</td>
 				<td class="price">
-					<a id="cancel" href="#">Cancel</a> 
+					<a id="cancel" href="<?php bloginfo('home') ?>">Cancel</a> 
 					or
 					<input type="submit" value="Buy Now">
 				</td>
@@ -114,8 +114,8 @@ Class shortcode_checkout{
 	}
 
 	public function stylesheets(){
-		wp_register_style( 'style-checkout', plugins_url('css/checkout.css', __FILE__) );
-		wp_enqueue_style( 'style-checkout' );
+		wp_register_style( 'deals_checkout', plugins_url('css/checkout.css', __FILE__) );
+		wp_enqueue_style( 'deals_checkout' );
 	}
 }
 ?>

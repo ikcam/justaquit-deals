@@ -174,8 +174,6 @@ function get_time($ID=NULL){
 	if($ID==NULL)
 		$ID = get_the_ID();
 
-	$post = get_post($ID);
-
 	if(is_active($ID)):
 		// Variables
 		$time_expire  = get_post_meta($ID, '_product_expire', TRUE);
@@ -255,6 +253,8 @@ function get_transaction_status($ID){
 		case 3:
 			$output = 'Complete';
 			break;
+		default:
+			$output = 'Error';
 	}
 
 	return $output;
@@ -271,7 +271,7 @@ function get_coupon_status($ID){
 			$output = 'Used.';
 			break;
 		default:
-			$output = 'Error.';
+			$output = 'Error';
 	}
 
 	return $output;

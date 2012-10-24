@@ -11,10 +11,10 @@ Class shortcode_transaction{
 	}
 
 	public function shortcode(){
-		if ( !wp_verify_nonce($_POST['deals_checkout'],'checkout') )
-			$error = 1;
-		else
+		if ( wp_verify_nonce($_POST['checkout'],'deals') )
 			$error = 0;
+		else
+			$error = 1;
 		if(isset($_POST['the_id']))
 			$ID = $_POST['the_id'];
 		else

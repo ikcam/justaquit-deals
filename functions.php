@@ -31,6 +31,15 @@ function get_transaction($ID){
 	return $wpdb->get_row($wpdb->prepare($query, $ID));
 }
 
+function get_transaction_by_order($ID){
+	global $wpdb;
+	$table = $wpdb->prefix.'transactions';
+
+	$query = "SELECT * FROM $table WHERE order_id = %d;";
+
+	return $wpdb->get_row($wpdb->prepare($query, $ID));
+}
+
 function get_transactions(){
 	global $wpdb;
 	$table = $wpdb->prefix.'transactions';
@@ -45,6 +54,15 @@ function get_coupon($ID){
 	$table = $wpdb->prefix.'coupons';
 
 	$query = "SELECT * FROM $table WHERE ID = %d;";
+
+	return $wpdb->get_row($wpdb->prepare($query, $ID));
+}
+
+function get_coupon_by_order($ID){
+	global $wpdb;
+	$table = $wpdb->prefix.'coupons';
+
+	$query = "SELECT * FROM $table WHERE order_id = %d;";
 
 	return $wpdb->get_row($wpdb->prepare($query, $ID));
 }
@@ -197,8 +215,8 @@ function get_inputs($ID=NULL){
 	return $output;
 }
 
-function get_transaction_status($ID){
-	$transaction = get_transaction($ID);
+function get_order_status($ID){
+	$transaction = get_transaction_by_order($ID);
 
 	switch($transaction->status){
 		case 1:
@@ -215,7 +233,7 @@ function get_transaction_status($ID){
 	return $output;
 }
 
-function get_order_status($ID){
+function get_transaction_status($ID){
 	$transaction = get_transaction($ID);
 
 	switch($transaction->status){

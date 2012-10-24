@@ -153,6 +153,9 @@ Class Box{
 		$expire      = parse_from_format( 'HH.ii mm.dd.yyyy', $expire );
 		$expire      = mktime($expire['hour'], $expire['minute'], 0, $expire['month'], $expire['day'], $expire['year']);
 
+		if(strtotime($post->post_date) > $expire)
+			$expire = strtotime($post->post_date);
+
 		add_post_meta($post_id, '_product_price_real', $price_real, TRUE) or update_post_meta($post_id, '_product_price_real', $price_real);
 		add_post_meta($post_id, '_product_price_max', $price_max, TRUE)   or update_post_meta($post_id, '_product_price_max', $price_max);
 		add_post_meta($post_id, '_product_price_min', $price_min, TRUE)   or update_post_meta($post_id, '_product_price_min', $price_min);

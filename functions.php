@@ -322,7 +322,7 @@ function get_category_deals($cat_id, $count=10){
 	return $wpdb->get_results( $wpdb->prepare( $query, $cat_id, $count ) );
 }
 
-function get_all_products($count=10){
+function get_all_deals($count=10){
 	$args = array(
 		'numberposts'     => $count,
 		'offset'          => 0,

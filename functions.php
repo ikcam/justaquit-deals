@@ -17,7 +17,7 @@ function get_orders(){
 	global $wpdb;
 	$table = $wpdb->prefix.'orders';
 
-	$query = "SELECT * FROM $table;";
+	$query = "SELECT * FROM $table ORDER DESC;";
 
 	return $wpdb->get_results($wpdb->prepare($query));
 }
@@ -44,7 +44,7 @@ function get_transactions(){
 	global $wpdb;
 	$table = $wpdb->prefix.'transactions';
 
-	$query = "SELECT * FROM $table;";
+	$query = "SELECT * FROM $table ORDER DESC;";
 
 	return $wpdb->get_results($wpdb->prepare($query));
 }
@@ -80,7 +80,7 @@ function get_coupons(){
 	global $wpdb;
 	$table = $wpdb->prefix.'coupons';
 
-	$query = "SELECT * FROM $table;";
+	$query = "SELECT * FROM $table ORDER DESC;";
 
 	return $wpdb->get_results($wpdb->prepare($query));
 }

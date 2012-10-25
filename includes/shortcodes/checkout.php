@@ -7,6 +7,7 @@ if(!defined('JUSTAQUIT_DEALS')){
 Class shortcode_checkout{
 	public function __construct(){
 		add_action('wp_enqueue_scripts', array($this, 'scripts'));
+		add_action('wp_enqueue_scripts', array($this, 'stylesheets'));
 		add_shortcode('checkout', array($this, 'shortcode'));
 	}
 

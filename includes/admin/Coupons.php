@@ -49,7 +49,7 @@ Class Coupons extends Deals{
 				<td class="order column-order"><?php echo $coupon->order_id ?></td>
 				<td class="code column-code"><?php echo $coupon->code ?></td>
 				<td class="date column-date"><?php echo date('H:i m/d/Y', $coupon->coupon_date) ?></td>
-				<td class="status column-status"><?php echo get_coupon_status() ?></td>
+				<td class="status column-status"><?php echo get_coupon_status($coupon->ID) ?></td>
 				<td class="usage column-usage">
 <?php
 if( $coupon->status == 0 )

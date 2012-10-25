@@ -41,7 +41,7 @@ jQuery(document).ready(function($){
 				var discount       = 100 - ( ( 100 * price_max ) / price_real );
 				discount           = Math.round( discount * 100 )/100;
 				// Replacement
-				$(this).find('span#price').html('$ '+price);
+				$(this).find('span#price').html('$ '+price_max);
 				$(this).find('span#discount').html(discount);
 				$(this).find('span#time').html('Active');
 			}

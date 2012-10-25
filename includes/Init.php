@@ -4,7 +4,7 @@ if(!defined('JUSTAQUIT_DEALS')){
 	die();
 }
 
-Class deals_init(){
+Class deals_init{
 	public function __construct(){
 		add_action('wp_enqueue_scripts', array($this, 'scripts'));
 	}

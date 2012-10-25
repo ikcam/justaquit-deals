@@ -50,7 +50,7 @@ Class Transactions extends Deals{
 				<td class="amount column-amount">$<?php echo $transaction->amount ?></td>
 				<td class="txnid column-txnid"><?php echo $transaction->txn_id ?></td>
 				<td class="date column-date"><?php echo date('H:i m/d/Y', $order->date_time) ?></td>
-				<td class="status column-status"><?php echo get_transaction_status() ?></td>
+				<td class="status column-status"><?php echo get_transaction_status($transaction->ID) ?></td>
 				<td class="options column-options"><a href="?page=product_orders&amp;view=<?php echo $order->ID ?>">View Details</a></td>
 			</tr>
 <?php

@@ -21,4 +21,5 @@ Class Deals{
 		add_menu_page( 'Deals', 'Deals', 'administrator', 'deals', array($this, 'page'), '' );
 	}
 }
+$init = new Deals();
 ?>

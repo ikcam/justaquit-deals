@@ -73,4 +73,5 @@ else
 		add_submenu_page('deals', 'Coupons', 'Coupons', 'administrator', 'deals_coupons', array($this, 'page'));
 	}
 }
+$init = new Coupons();
 ?>

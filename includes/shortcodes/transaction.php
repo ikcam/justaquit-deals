@@ -73,5 +73,5 @@ Class shortcode_transaction{
 		endif;
 	}
 }
-
+$init = new shortcode_transaction();
 ?>

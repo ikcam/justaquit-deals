@@ -83,6 +83,6 @@ Class Settings extends Deals{
 	public function add(){
 		add_submenu_page('deals', 'Settings', 'Settings', 'administrator', 'deals_settings', array($this, 'page'));
 	}
-
 }
+$init = new Settings();
 ?>

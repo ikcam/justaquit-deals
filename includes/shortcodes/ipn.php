@@ -101,4 +101,5 @@ Class shortcode_ipn{
 		}
 	}
 }
+$init = new shortcode_ipn();
 ?>

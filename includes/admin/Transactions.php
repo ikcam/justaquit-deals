@@ -66,4 +66,5 @@ Class Transactions extends Deals{
 		add_submenu_page('deals', 'Transactions', 'Transactions', 'administrator', 'deals_transactions', array($this, 'page'));
 	}
 }
+$init = new Transactions();
 ?>

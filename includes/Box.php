@@ -187,5 +187,5 @@ Class Box{
 		add_meta_box( 'deals_post_box', 'Deal Information', array($this, 'box'), 'post', 'side', 'high' );
 	}
 }
-
+$init = new Box();
 ?>

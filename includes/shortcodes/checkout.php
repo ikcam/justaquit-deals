@@ -119,4 +119,5 @@ Class shortcode_checkout{
 		wp_enqueue_style( 'deals_checkout' );
 	}
 }
+$init = new shortcode_checkout();
 ?>

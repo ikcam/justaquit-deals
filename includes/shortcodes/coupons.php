@@ -65,4 +65,5 @@ Class shortcode_coupons{
 		endif;
 	}
 }
+$init = new shortcode_coupons();
 ?>

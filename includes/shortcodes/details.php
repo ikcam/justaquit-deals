@@ -63,4 +63,5 @@ Class shortcode_details {
 		wp_enqueue_script( 'jquery-details', plugin_dir_url(__FILE__).'../../javascript/details.jquery.js');
 	}
 }
+$init = new shortcode_details();
 ?>

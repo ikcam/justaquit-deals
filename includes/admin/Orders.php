@@ -64,4 +64,5 @@ Class Orders extends Deals{
 		add_submenu_page('deals', 'Orders', 'Orders', 'administrator', 'deals_orders', array($this, 'page'));
 	}
 }
+$init = new Orders();
 ?>

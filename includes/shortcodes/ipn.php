@@ -59,6 +59,7 @@ Class shortcode_ipn{
 		$receiver_email   = $_POST['receiver_email'];
 		$payer_email      = $_POST['payer_email'];
 
+		
 		if (strcmp ($res, "VERIFIED") == 0) {
 			// check the payment_status is Completed
 			if( $payment_status == 'Completed' ) :

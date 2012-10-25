@@ -10,7 +10,7 @@ Class Transaction{
 	private $txn_id;
 	private $status;
 
-	public function __construct($order_id, $amount, $xtxn_id, $status){
+	public function __construct($order_id, $amount, $txn_id, $status){
 		$this->order_id = $order_id;
 		$this->amount   = $amount;
 		$this->txn_id   = $txn_id;
@@ -21,14 +21,14 @@ Class Transaction{
 		global $wpdb;
 		$table = $wpdb->prefix.'transactions';
 
-		if($this->exists()){
+		if(!$this->exists()){
 			$data = array(
 				'order_id' => $this->order_id,
-				'amount' => $this->amount,
-				'txn_id' => $this->txn_id,
-				'status' => $this->status
+				'amount'   => $this->amount,
+				'txn_id'   => $this->txn_id,
+				'status'   => $this->status
 			);
-			$format = array('%d', '%d', '%d', '%d');
+			$format = array('%d', '%d', '%s', '%d');
 			$wpdb->insert($table, $data, $format);
 			return $wpdb->insert_id;
 		} else {

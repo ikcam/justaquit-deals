@@ -49,7 +49,7 @@ Class shortcode_transaction{
 				$price = get_price_by_time($ID, $time_buy);
 
 				$order   = new Order($contact_email, $contact_first_name, $contact_last_name, $ID, $price, $time_buy);
-				$oder_id = $order->add_order();
+				$order_id = $order->add_order();
 				$order   = get_order($order_id);
 
 				if( is_object($order) ) :

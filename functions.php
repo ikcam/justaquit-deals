@@ -71,7 +71,7 @@ function get_coupon_by_code($code){
 	global $wpdb;
 	$table = $wpdb->prefix.'coupons';
 
-	$query = "SELECT * FROM TABLE WHERE code = %s;";
+	$query = "SELECT * FROM $table WHERE code = %s;";
 
 	return $wpdb->get_row($wpdb->prepare($query, $code));
 }
@@ -272,10 +272,10 @@ function get_coupon_status($ID){
 
 	switch($coupon->status){
 		case 0:
-			$output = 'Not used yet.';
+			$output = 'Valid';
 			break;
 		case 1:
-			$output = 'Used.';
+			$output = 'Used';
 			break;
 		default:
 			$output = 'Error';

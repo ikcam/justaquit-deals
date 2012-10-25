@@ -54,7 +54,7 @@ Class Coupon{
 		global $wpdb;
 		$table = $wpdb->prefix.'coupons';
 
-		if($this->exists($ID)){
+		if(Coupon::exists($ID)){
 			$data = array(
 				'status'     => 1,
 				'usage_date' => strtotime(current_time('mysql'))
@@ -63,7 +63,7 @@ Class Coupon{
 				'ID' => $ID
 			);
 			$format = array('%d', '%d');
-			$wpdb->update($data, $table, $where, $format);
+			$wpdb->update($table, $data, $where, $format);
 			
 			return TRUE;
 		} else {
@@ -84,20 +84,19 @@ Class Coupon{
 			}
 
 			$this->code = $key;
-
 		} while($this->exists());
 	}
 
-	private function exists($ID=NULL){
+	public function exists($ID=NULL){
 		global $wpdb;
 		$table = $wpdb->prefix.'coupons';
 
 		if($ID==NULL){
 			$query = "SELECT COUNT(*) FROM $table WHERE code = %s;";
-			$count = $wpdb->query($wpdb->prepare($query, $this->code));
+			$count = $wpdb->get_var($wpdb->prepare($query, $this->code));
 		} else {
 			$query = "SELECT COUNT(*) FROM $table WHERE ID = %d;";
-			$count = $wpdb->query($wpdb->prepare($query, $ID));
+			$count = $wpdb->get_var($wpdb->prepare($query, $ID));
 		}
 
 		if($count>0)

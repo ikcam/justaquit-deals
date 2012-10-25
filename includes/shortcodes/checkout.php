@@ -116,7 +116,7 @@ Class shortcode_checkout{
 	}
 
 	public function stylesheets(){
-		wp_register_style( 'deals_checkout', plugins_url('css/checkout.css', __FILE__) );
+		wp_register_style( 'deals_checkout', plugin_dir_url(__FILE__).'stylesheet/checkout.css');
 		wp_enqueue_style( 'deals_checkout' );
 	}
 }

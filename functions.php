@@ -132,6 +132,9 @@ function get_discount($ID=NULL){
 	$price_real    = get_post_meta($ID, '_product_price_real', TRUE);
 	$price_current = get_price($ID);
 	
+	if($price_real == 0)
+		$price_real = 1;
+	
 	// Calculation
 	$discount      = 100 - ( ( 100 * $price_current ) / $price_real );
 	$discount      = floor( $discount * 100 ) / 100;
@@ -299,6 +302,69 @@ function parse_from_format($format, $date) {
   }
   
   return $dt;
+}
+
+function get_deals_categories( $count=10 ){
+	global $wpdb;
+	// Query
+	$query = "SELECT * FROM $wpdb->terms WHERE term_id IN ( SELECT term_taxonomy_id FROM $wpdb->term_relationships WHERE object_id IN ( SELECT ID FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ) ) AND term_id IN ( SELECT term_id FROM $wpdb->term_taxonomy WHERE taxonomy = 'category' AND parent = 0 ) ORDER BY term_id DESC LIMIT 0,%d";
+	// Result
+	return $wpdb->get_results( $wpdb->prepare( $query, $count ) );;
+}
+
+function get_category_deals($cat_id, $count=10){
+	global $wpdb;
+	// Variables
+	$time_current = strtotime( current_time('mysql') );
+	// Query
+	$query = "SELECT * FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND ID IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id = %d ) ORDER BY post_date DESC LIMIT 0, %d";
+	//Result
+	return $wpdb->get_results( $wpdb->prepare( $query, $cat_id, $count ) );
+}
+
+function get_all_products($count=10){
+	$args = array(
+		'numberposts'     => $count,
+		'offset'          => 0,
+		'orderby'         => 'rand',
+		'meta_key'        => '_product_expire',
+		'post_type'       => 'post',
+		'post_status'     => 'publish'
+	);
+	return get_posts($args);
+}
+
+function get_new_deals($count=10){
+	$args = array(
+		'numberposts'     => $count,
+		'offset'          => 0,
+		'orderby'         => 'post_date',
+		'meta_key'        => '_product_expire',
+		'post_type'       => 'post',
+		'post_status'     => 'publish'
+	);
+	return get_posts($args);
+}
+
+function get_ending_deals($count=10){
+	global $wpdb;
+	$time_current = strtotime(current_time('mysql'));
+
+	$query = "SELECT * FROM $wpdb->posts AS a	INNER JOIN $wpdb->postmeta AS b ON a.ID = b.post_id WHERE a.post_type = 'post' AND a.post_status = 'publish' AND b.meta_key = '_product_expire' AND b.meta_value > %d ORDER BY b.meta_value ASC LIMIT 0,%d";
+	return $wpdb->get_results( $wpdb->prepare( $query, $time_current, $count ) );
+}
+
+function get_views_deals($count=10){
+	$args = array(
+		'numberposts'     => $count,
+		'offset'          => 0,
+		'orderby'         => 'meta_value_num',
+		'order'           => 'DESC',
+		'meta_key'        => '_product_views',
+		'post_type'       => 'post',
+		'post_status'     => 'publish'
+	);
+	return get_posts($args);
 }
 
 ?>

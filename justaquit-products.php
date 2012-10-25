@@ -1,48 +1,6 @@
 <?php
 class product_functions {
 	/*
-	@@ Función: get_categories @@
-	Args:
-		- (Int) count: Número de elementos requeridos
-	*/
-	public function get_categories( $count=10 ){
-		// Globalize $wpdb for SQL queries
-		global $wpdb;
-		// Vars
-		$time_current = strtotime( current_time('mysql') );
-		// Query
-		$query = "SELECT * FROM $wpdb->terms WHERE term_id IN ( SELECT term_taxonomy_id FROM $wpdb->term_relationships WHERE object_id IN ( SELECT ID FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ) ) AND term_id IN ( SELECT term_id FROM $wpdb->term_taxonomy WHERE taxonomy = 'category' AND parent = 0 ) ORDER BY term_id DESC LIMIT 0,%d";
-		$categories = $wpdb->get_results( $wpdb->prepare( $query, $count ) );
-		// Result
-		if( !$categories )
-			return false;andy
-		else
-			return $categories;
-	}
-
-	/*
-	@@ Función: get_category_posts @@
-	Argumentos:
-		- (Int) cat_id: ID de la categoría.
-		- (Int) count: Número de elementos requeridos.
-	Devuelve posts activos de una categoría específica.
-	*/
-	public function get_category_posts( $cat_id, $count ){
-		// Globalize $wpdb for SQL queries
-		global $wpdb;
-		// Vars
-		$time_current = strtotime( current_time('mysql') );
-		// Query
-		$query = "SELECT * FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND ID IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id = %d ) ORDER BY post_date DESC LIMIT 0, %d";
-		$posts = $wpdb->get_results( $wpdb->prepare( $query, $cat_id, $count ) );
-		// Result
-		if( !$posts )
-			return false;
-		else
-			return $posts;
-	}
-
-	/*
 	@@ Función: views_count @@
 	Contador de la cantidad de vistas de un producto
 	*/
@@ -80,10 +38,7 @@ class product_functions {
 
 		add_post_meta($post->ID, '_product_buys', $count, true) or update_post_meta( $post->ID, '_product_buys', $count );
 	}
-
-	
 } // End of class: product_functions
-add_action( 'wp_head', array('product_functions', 'views_count') );
 
 class product_slider {
 	/*
@@ -100,83 +55,7 @@ class product_slider {
 		}
 	}
 
-	function get_all_products( $count ){
-		$args = array(
-			'numberposts'     => $count,
-			'offset'          => 0,
-			'orderby'         => 'rand',
-			'meta_key'        => '_product_expire',
-			'post_type'       => 'post',
-			'post_status'     => 'publish'
-		);
-		$posts = get_posts($args);
 
-		if( $posts )
-			return $posts;
-		else
-			return false;
-	}
-
-	function get_new_products( $count ){
-		$args = array(
-			'numberposts'     => $count,
-			'offset'          => 0,
-			'orderby'         => 'post_date',
-			'meta_key'        => '_product_expire',
-			'post_type'       => 'post',
-			'post_status'     => 'publish'
-		);
-		$posts = get_posts($args);
-
-		if( $posts )
-			return $posts;
-		else
-			return false;
-	}
-
-	function get_ending_products( $count ){
-		global $wpdb;
-		$time_current = strtotime( current_time('mysql') );
-
-		$query = "SELECT * FROM $wpdb->posts AS a	INNER JOIN $wpdb->postmeta AS b ON a.ID = b.post_id WHERE a.post_type = 'post' AND a.post_status = 'publish' AND b.meta_key = '_product_expire' AND b.meta_value > %d ORDER BY b.meta_value ASC LIMIT 0,%d";
-		$posts = $wpdb->get_results( $wpdb->prepare( $query, $time_current, $count ) );
-
-		if( $posts )
-			return $posts;
-		else
-			return false;
-	}
-
-	function get_gone_products( $count ){
-		global $wpdb;
-		$time_current = strtotime( current_time('mysql') );
-
-		$query = "SELECT * FROM $wpdb->posts AS a	INNER JOIN $wpdb->postmeta AS b ON a.ID = b.post_id WHERE a.post_type = 'post' AND a.post_status = 'publish' AND b.meta_key = '_product_expire' AND b.meta_value < %d ORDER BY b.meta_value ASC LIMIT 0,%d";
-		$posts = $wpdb->get_results( $wpdb->prepare( $query, $time_current, $count ) );
-
-		if( $posts )
-			return $posts;
-		else
-			return false;
-	}
-
-	function get_views_products( $count ){
-		$args = array(
-			'numberposts'     => $count,
-			'offset'          => 0,
-			'orderby'         => 'meta_value_num',
-			'order'           => 'DESC',
-			'meta_key'        => '_product_views',
-			'post_type'       => 'post',
-			'post_status'     => 'publish'
-		);
-		$posts = get_posts($args);
-
-		if( $posts )
-			return $posts;
-		else
-			return false;
-	}
 } // End of class: product_slide
 
 // Call WordPress actions for product_slider

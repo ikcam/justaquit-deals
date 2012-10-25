@@ -15,6 +15,7 @@ Class shortcode_details {
 		// Get post information
 		$ID = get_the_ID();
 		$views = get_post_meta( $ID, '_product_views', TRUE );
+		views_count();
 
 		// If post is active execute
 		$output  = "\n".'<form class="product_details" method="post" action="'.get_bloginfo('url').'/store/checkout" >';
@@ -39,7 +40,7 @@ Class shortcode_details {
 	  $output .= "\n\t\t\t".'<span id="views">'.$views.' Views</span>';
 	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t\t".'<div class="gift">';
-	  //$output .= if(function_exists('kk_star_ratings'))($ID);
+	  $output .= if(function_exists('kk_star_ratings')){kk_star_ratings($ID)};
 	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t\t".'<div class="share">';
 	  $output .= "\n\t\t\t".'<div class="fb-like" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-action="like" data-font="arial"></div>';

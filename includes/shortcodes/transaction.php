@@ -45,7 +45,7 @@ Class shortcode_transaction{
 			if( $time_diff > 130 && is_active($ID) ):
 				echo 'Sorry, your time has expire, you have to place again your order.'."\n";
 			else:
-				//product_functions::buys_count($product_id);
+				buys_count($ID);
 				$price = get_price_by_time($ID, $time_buy);
 
 				$order = new Order($contact_email, $contact_first_name, $contact_last_name, $ID, $price, $time_buy);

@@ -131,7 +131,7 @@ function get_discount($ID=NULL){
 	// Variables
 	$price_real    = get_post_meta($ID, '_product_price_real', TRUE);
 	$price_current = get_price($ID);
-	
+
 	if($price_real == 0)
 		$price_real = 1;
 	
@@ -367,4 +367,31 @@ function get_views_deals($count=10){
 	return get_posts($args);
 }
 
+function views_count(){
+	$ID   = get_the_ID();
+	$count = get_post_meta($ID, '_product_views', TRUE );
+
+	if( !$count )
+		$count = 1;
+	else {
+		$count = intval( $count );
+		$count++;				
+	}
+
+	add_post_meta($post->ID, '_product_views', $count, true) or update_post_meta($post->ID, '_product_views', $count);
+}
+
+function buys_count($ID){
+	$ID    = intval($ID);
+	$count = get_post_meta($ID, '_product_buys', TRUE);
+
+	if( !$count )
+		$count = 1;
+	else {
+		$count = intval( $count );
+		$count++;
+	}
+
+	add_post_meta($post->ID, '_product_buys', $count, true) or update_post_meta($post->ID, '_product_buys', $count);
+}
 ?>

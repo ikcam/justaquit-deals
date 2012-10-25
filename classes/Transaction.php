@@ -51,7 +51,7 @@ Class Transaction{
 
 	public static function verify_txnid($txnid){
 		global $wpdb;
-		$table = $wpdb->prefix.'transaction';
+		$table = $wpdb->prefix.'transactions';
 
 		$query = "SELECT COUNT(*) FROM $table WHERE txn_id = %s;";
 		$count = $wpdb->get_var($wpdb->prepare($query, $txnid));

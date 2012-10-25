@@ -48,8 +48,9 @@ Class shortcode_transaction{
 				buys_count($ID);
 				$price = get_price_by_time($ID, $time_buy);
 
-				$order = new Order($contact_email, $contact_first_name, $contact_last_name, $ID, $price, $time_buy);
-				$order = get_order($order->add_order());
+				$order   = new Order($contact_email, $contact_first_name, $contact_last_name, $ID, $price, $time_buy);
+				$oder_id = $order->add_order();
+				$order   = get_order($order_id);
 
 				if( is_object($order) ) :
 					$settings = get_option('justaquit_deals');

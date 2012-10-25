@@ -16,21 +16,21 @@ Class Settings extends Deals{
 <div class="wrap">
 	<h2>Settings</h2>
 	<form method="post" action="options.php">
-	<?php settings_fields('deals'); ?>
+	<?php settings_fields('justaquit_deals'); ?>
 	<h3>Main Settings</h3>
 	<table class="form-table">
 	<tbody>
 		<tr valign="top">
 			<th scope="row"><label for="price_real">Default Real Price</label></th>
-			<td><input type="text" id="price_real" name="deals[price_real]" value="<?php echo $settings['price_real'] ?>" /></td>
+			<td><input type="text" id="price_real" name="justaquit_deals[price_real]" value="<?php echo $settings['price_real'] ?>" /></td>
 		</tr>
 		<tr valign="top">
 			<th scope="row"><label for="price_max">Default Max Price</label></th>
-			<td><input type="text" id="price_max" name="deals[price_max]" value="<?php echo $settings['price_max'] ?>" /></td>
+			<td><input type="text" id="price_max" name="justaquit_deals[price_max]" value="<?php echo $settings['price_max'] ?>" /></td>
 		</tr>
 		<tr valign="top">
 			<th scope="row"><label for="price_min">Default Min Price</label></th>
-			<td><input type="text" id="price_min" name="deals[price_min]" value="<?php echo $settings['price_min'] ?>" /></td>
+			<td><input type="text" id="price_min" name="justaquit_deals[price_min]" value="<?php echo $settings['price_min'] ?>" /></td>
 		</tr>
 	</tbody>
 	</table>
@@ -39,7 +39,7 @@ Class Settings extends Deals{
 	<tbody>
 		<tr valign="top">
 			<th scope="row"><label for="paypal_account">PayPal Email</label></th>
-			<td><input type="text" id="paypal_account" name="deals[paypal_account]" value="<?php echo $settings['paypal_account'] ?>" required /></td>
+			<td><input type="text" id="paypal_account" name="justaquit_deals[paypal_account]" value="<?php echo $settings['paypal_account'] ?>" required /></td>
 		</tr>
 	</tbody>
 	</table>
@@ -77,7 +77,7 @@ Class Settings extends Deals{
 	}
 
 	public function register(){
-		register_setting('deals', 'justaquit_deals', array($this, 'save'));
+		register_setting('justaquit_deals', 'justaquit_deals', array($this, 'save'));
 	}
 
 	public function add(){

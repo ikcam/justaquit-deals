@@ -40,7 +40,7 @@ Class shortcode_details {
 	  $output .= "\n\t\t\t".'<span id="views">'.$views.' Views</span>';
 	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t\t".'<div class="gift">';
-	  if(function_exists('kk_star_ratings')){$output .= kk_star_ratings($ID)}
+	  if(function_exists('kk_star_ratings')){$output .= kk_star_ratings($ID);}
 	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t\t".'<div class="share">';
 	  $output .= "\n\t\t\t".'<div class="fb-like" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-action="like" data-font="arial"></div>';

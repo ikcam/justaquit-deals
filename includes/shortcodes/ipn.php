@@ -71,7 +71,7 @@ Class shortcode_ipn{
 						if( $order->amount == $payment_amount ) :
 							// Add transaction
 							$transaction    = new Transaction($item_number, $payment_amount, $txn_id, 3);
-							$transaction_id = $transaction->add_trasaction();
+							$transaction_id = $transaction->add_transaction();
 							$coupon         = new Coupon($item_number);
 							$coupon_id      = $coupon->add_coupon();
 

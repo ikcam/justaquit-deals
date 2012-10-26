@@ -378,7 +378,7 @@ function views_count(){
 		$count++;				
 	}
 
-	add_post_meta($post->ID, '_product_views', $count, true) or update_post_meta($post->ID, '_product_views', $count);
+	add_post_meta($ID, '_product_views', $count, true) or update_post_meta($ID, '_product_views', $count);
 }
 
 function buys_count($ID){
@@ -392,6 +392,6 @@ function buys_count($ID){
 		$count++;
 	}
 
-	add_post_meta($post->ID, '_product_buys', $count, true) or update_post_meta($post->ID, '_product_buys', $count);
+	add_post_meta($ID, '_product_buys', $count, true) or update_post_meta($ID, '_product_buys', $count);
 }
 ?>

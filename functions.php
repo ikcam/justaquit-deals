@@ -89,10 +89,11 @@ function is_active($ID=NULL){
 	if($ID==NULL)
 		$ID = get_the_ID();
 	
+	$time_active  = get_post_meta($ID, '_product_active', TRUE);
 	$time_expire  = get_post_meta($ID, '_product_expire', TRUE);
 	$time_current = strtotime(current_time('mysql'));
 
-	if($time_expire > $time_current)
+	if($time_expire > $time_current  && $time_active < $time_current)
 		return TRUE;
 	else
 		return FALSE;
@@ -108,12 +109,12 @@ function get_price($ID=NULL){
 		// Variables
 		$price_max      = get_post_meta( $ID, '_product_price_max', TRUE );
 		$price_min      = get_post_meta( $ID, '_product_price_min', TRUE );
+		$time_active    = get_post_meta( $ID, '_product_active', TRUE );
 		$time_expire    = get_post_meta( $ID, '_product_expire', TRUE );
-		$time_published = strtotime( $post->post_date );
 		$time_current   = strtotime( current_time('mysql') );
 		// Calculation
-		$time_onair     = $time_current - $time_published;
-		$time_total     = $time_expire - $time_published;
+		$time_onair     = $time_current - $time_active;
+		$time_total     = $time_expire - $time_active;
 		$price_diff     = $price_max - $price_min;
 		$price          = $price_min + ( $time_onair * $price_diff ) / $time_total;
 		$price          = floor( $price * 100 ) / 100;
@@ -155,13 +156,13 @@ function get_price_by_time( $ID=NULL, $time ){
 		// Variables
 		$price_max      = get_post_meta($ID, '_product_price_max', TRUE);
 		$price_min      = get_post_meta($ID, '_product_price_min', TRUE);
+		$time_active    = get_post_meta($ID, '_product_active', TRUE);
 		$time_expire    = get_post_meta($ID, '_product_expire', TRUE);
-		$time_published = strtotime($post->post_date);
 		$time_current   = floor($time);
 		
 		// Calculation
-		$time_onair     = $time_current - $time_published;
-		$time_total     = $time_expire - $time_published;
+		$time_onair     = $time_current - $time_active;
+		$time_total     = $time_expire - $time_active;
 		$price_diff     = $price_max - $price_min;
 		$price          = $price_min + ($time_onair * $price_diff) / $time_total;
 		$price          = floor( $price * 100 ) / 100;
@@ -209,15 +210,15 @@ function get_inputs($ID=NULL){
 	$price_real     = get_post_meta($ID, '_product_price_real', TRUE);
 	$price_max      = get_post_meta($ID, '_product_price_max', TRUE);
 	$price_min      = get_post_meta($ID, '_product_price_min', TRUE);
+	$time_active    = get_post_meta($ID, '_product_active', TRUE);
 	$time_expire    = get_post_meta($ID, '_product_expire', TRUE);
-	$time_published = strtotime($post->post_date);
 	$time_current   = strtotime(current_time('mysql'));
 
 	// Output
 	$output         = "\n".'<input type="hidden" name="price_real" id="price_real" value="'.$price_real.'" />';
 	$output        .= "\n".'<input type="hidden" name="price_max" id="price_max" value="'.$price_max.'" />';
 	$output        .= "\n".'<input type="hidden" name="price_min" id="price_min" value="'.$price_min.'" />';
-	$output        .= "\n".'<input type="hidden" name="time_published" id="time_published" value="'.$time_published.'" />';
+	$output        .= "\n".'<input type="hidden" name="time_active" id="time_active" value="'.$time_active.'" />';
 	$output        .= "\n".'<input type="hidden" name="time_expire" id="time_expire" value="'.$time_expire.'" />';
 	$output        .= "\n".'<input type="hidden" name="time_current" id="time_current" value="'.$time_current.'" />';
 
@@ -350,7 +351,7 @@ function get_ending_deals($count=10){
 	global $wpdb;
 	$time_current = strtotime(current_time('mysql'));
 
-	$query = "SELECT * FROM $wpdb->posts AS a	INNER JOIN $wpdb->postmeta AS b ON a.ID = b.post_id WHERE a.post_type = 'post' AND a.post_status = 'publish' AND b.meta_key = '_product_expire' AND b.meta_value > %d ORDER BY b.meta_value ASC LIMIT 0,%d";
+	$query = "SELECT * FROM $wpdb->posts AS a	INNER JOIN $wpdb->postmeta AS b ON a.ID = b.post_id WHERE a.post_type = 'post' AND a.post_status = 'publish' AND b.meta_key = '_product_active' AND b.meta_value < %d ORDER BY b.meta_value DESC LIMIT 0,%d";
 	return $wpdb->get_results( $wpdb->prepare( $query, $time_current, $count ) );
 }
 
@@ -361,6 +362,19 @@ function get_views_deals($count=10){
 		'orderby'         => 'meta_value_num',
 		'order'           => 'DESC',
 		'meta_key'        => '_product_views',
+		'post_type'       => 'post',
+		'post_status'     => 'publish'
+	);
+	return get_posts($args);
+}
+
+function get_buys_deals($count=10){
+	$args = array(
+		'numberposts'     => $count,
+		'offset'          => 0,
+		'orderby'         => 'meta_value_num',
+		'order'           => 'DESC',
+		'meta_key'        => '_product_buys',
 		'post_type'       => 'post',
 		'post_status'     => 'publish'
 	);

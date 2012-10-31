@@ -11,7 +11,7 @@ jQuery(document).ready(function($){
 			var price_real     = $(this).find('#price_real').attr('value');
 			var price_max      = $(this).find('#price_max').attr('value');
 			var price_min      = $(this).find('#price_min').attr('value');
-			var time_published = $(this).find('#time_published').attr('value');
+			var time_active    = $(this).find('#time_active').attr('value');
 			var time_expire    = $(this).find('#time_expire').attr('value');
 			var time_current   = $(this).find('#time_current').attr('value');
 			// Parse Variables
@@ -19,13 +19,13 @@ jQuery(document).ready(function($){
 			price_max          = parseInt(price_max);
 			price_min          = parseInt(price_min);
 			time_current       = parseInt(time_current);
-			time_published     = parseInt(time_published);
+			time_active        = parseInt(time_active);
 			time_expire        = parseInt(time_expire);
 			// Calculations
 			var time           = time_expire - time_current;
-			if( time > 0 ) {
-				var time_onair     = time_current - time_published;
-				var time_total     = time_expire - time_published;
+			var time_onair     = time_current - time_active;
+			if( time > 0 && time_onair > 0 ) {
+				var time_total     = time_expire - time_active;
 				var price_diff     = price_max - price_min;
 				var price          = price_min + ( time_onair * price_diff ) / time_total;
 				var discount       = 100 - ( ( 100 * price ) / price_real );

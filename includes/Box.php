@@ -56,6 +56,28 @@ Class Box{
 		<label for="price_min">Min Price:</label>
 		<input type="text" name="price_min" id="price_min" value="<?php echo $value ?>" />
 	</p>
+	<hr />
+<?php
+	if(!get_post_meta($post->ID, '_product_active', TRUE))
+		$value = date( 'm/d/Y', time() );
+	else
+		$value = date( 'm/d/Y', get_post_meta($post->ID, '_product_active', TRUE) );
+?>
+	<p>
+		<label for="expire_date">Activation Date:</label>
+		<input type="text" name="active_date" id="active_date" value="<?php echo $value ?>" />
+	</p>
+<?php
+	if(!get_post_meta($post->ID, '_product_active', TRUE))
+		$value = date('H:i', time());
+	else
+		$value = date('H:i', get_post_meta($post->ID, '_product_active', TRUE));
+?>
+	<p>
+		<label for="expire_time">Activation Time:</label>
+		<input type="text" name="active_time" id="active_time" value="<?php echo $value ?>" />
+	</p>
+	<hr />
 <?php
 	if(!get_post_meta($post->ID, '_product_expire', TRUE))
 		$value = date( 'm/d/Y', time() );
@@ -84,6 +106,16 @@ Class Box{
 ?>
 	<p>
 		<label>Server time:</label>
+		<input type="text" readonly disabled value="<?php echo $value ?>" />
+	</p>
+<?php
+	if(!get_post_meta($post->ID, '_product_active', TRUE))
+		$value = 'No activation time/date yet.';
+	else
+		$value = date('H:i m/d/Y', get_post_meta($post->ID, '_product_active', TRUE));
+?>
+	<p>
+		<label>Activation:</label>
 		<input type="text" readonly disabled value="<?php echo $value ?>" />
 	</p>
 <?php
@@ -135,6 +167,8 @@ Class Box{
 		$price_real  = $_POST['price_real'];
 		$price_max   = $_POST['price_max'];
 		$price_min   = $_POST['price_min'];
+		$active_date = $_POST['active_date'];
+		$active_time = $_POST['active_time'];
 		$expire_date = $_POST['expire_date'];
 		$expire_time = $_POST['expire_time'];
 
@@ -154,11 +188,24 @@ Class Box{
 		$price_max   = esc_attr($price_max);
 		$price_min   = esc_attr($price_min);
 		$quantity    = esc_attr($quantity);
+
+		$active_date = preg_replace('/\//', '.', $active_date);
+		$active_time = preg_replace('/:/', '.', $active_time);
+		$active      = $active_time . ' ' . $active_date;
+		$active      = parse_from_format( 'HH.ii mm.dd.yyyy', $active );
+		$active      = mktime($active['hour'], $active['minute'], 0, $active['month'], $active['day'], $active['year']);
+
 		$expire_date = preg_replace('/\//', '.', $expire_date);
 		$expire_time = preg_replace('/:/', '.', $expire_time);
 		$expire      = $expire_time . ' ' . $expire_date;
 		$expire      = parse_from_format( 'HH.ii mm.dd.yyyy', $expire );
 		$expire      = mktime($expire['hour'], $expire['minute'], 0, $expire['month'], $expire['day'], $expire['year']);
+
+		if( $active > $expire ) :
+			$aux    = $active;
+			$active = $expire;
+			$expire = $aux;
+		endif;
 
 		if(strtotime($post->post_date) > $expire)
 			$expire = strtotime($post->post_date);
@@ -168,6 +215,7 @@ Class Box{
 		add_post_meta($post_id, '_product_price_min', $price_min, TRUE)   or update_post_meta($post_id, '_product_price_min', $price_min);
 		add_post_meta($post_id, '_product_quantity', $quantity, TRUE)     or update_post_meta($post_id, '_product_quantity', $quantity);
 		add_post_meta($post_id, '_product_expire', $expire, TRUE)         or update_post_meta($post_id, '_product_expire', $expire);
+		add_post_meta($post_id, '_product_active', $active, TRUE)         or update_post_meta($post_id, '_product_active', $active);
 	}
 
 	public function scripts(){

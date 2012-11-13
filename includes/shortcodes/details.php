@@ -30,24 +30,24 @@ Class shortcode_details {
 	  $output .= "\n\t\t".'<div class="discount">';
 	  $output .= "\n\t\t\t".'<span id="discount">'.get_discount().'</span>% savings';
 	  $output .= "\n\t\t".'</div>';
+	  $output .= "\n\t\t".'<div class="views">';
+	  $output .= "\n\t\t\t".'<span id="views">'.$views.' Views</span>';
+	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t\t".'<div class="price">';
 	  $output .= "\n\t\t\t".'<span id="price">$'.get_price().'</span>';
 	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t\t".'<input type="submit" value="Buy Now!" />';
 	  $output .= "\n\t".'</div>';
 	  $output .= "\n\t".'<div class="bottom">';
-	  $output .= "\n\t\t".'<div class="views">';
-	  $output .= "\n\t\t\t".'<span id="views">'.$views.' Views</span>';
-	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t\t".'<div class="gift">';
-	  if(function_exists('kk_star_ratings')){$output .= kk_star_ratings($ID);}
+	  if(function_exists('the_ratings')){$output .= the_ratings('div',$ID ,false);}
 	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t\t".'<div class="share">';
 	  $output .= "\n\t\t\t".'<div class="fb-like" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-action="like" data-font="arial"></div>';
 		$output .= "\n".'<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-hashtags="mydealisideal">Tweet</a>';
 		$output .= "\n".'<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
 		$output .= "\n".'<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-counter="right"></script>';
-		//$output .= "\n".'<div class="g-plus" data-action="share" data-annotation="bubble"></div>';
+		$output .= "\n".'<div class="g-plus" data-action="share" data-annotation="bubble"></div>';
 	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t".'</div>';
 	  $output .= "\n".'</form>';

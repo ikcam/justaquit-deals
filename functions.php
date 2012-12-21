@@ -19,7 +19,7 @@ function get_orders(){
 
 	$query = "SELECT * FROM $table ORDER BY ID DESC;";
 
-	return $wpdb->get_results($wpdb->prepare($query));
+	return $wpdb->get_results($query);
 }
 
 function get_transaction($ID){
@@ -46,7 +46,7 @@ function get_transactions(){
 
 	$query = "SELECT * FROM $table ORDER BY ID DESC;";
 
-	return $wpdb->get_results($wpdb->prepare($query));
+	return $wpdb->get_results($query);
 }
 
 function get_coupon($ID){
@@ -82,7 +82,7 @@ function get_coupons(){
 
 	$query = "SELECT * FROM $table ORDER BY ID DESC;";
 
-	return $wpdb->get_results($wpdb->prepare($query));
+	return $wpdb->get_results($query);
 }
 
 function is_active($ID=NULL){

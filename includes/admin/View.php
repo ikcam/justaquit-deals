@@ -127,12 +127,30 @@ Class View extends Deals{
 <?php
 			else:
 ?>
-Error 1
+<div class="wrap">
+	<h2>Error</h2>
+	<p>Owwwww :(</p>
+	<p>The order that you are searching doesn't exists.</p>
+</div>
 <?php
 			endif;
 		else:
 ?>
-Error 2
+<div class="wrap">
+	<h2>Search Order</h2>
+	<form method="get" action="">
+		<input type="hidden" name="page" value="deals_view" />
+		<table class="form-table">
+		<tbody>
+			<tr valign="top">
+				<th scope="row">Order ID</th>
+				<td><input type="text" name="view" required /></td>
+			</tr>
+		</tbody>
+		</table>
+		<p class="submit"><input type="submit" id="submit" class="button-primary" value="<?php _e('Search') ?>"></p>
+	</form>
+</div>
 <?php
 		endif;
 	}

@@ -58,7 +58,7 @@ else
 	echo date( 'H:i m/d/y', $coupon->usage_date );
 ?>
 				</td>
-				<td class="options column-options"><a href="?page=product_orders&amp;view=<?php echo $order->ID ?>">View Details</a></td>
+				<td class="options column-options"><a href="?page=deals_view&amp;view=<?php echo $order->ID ?>">View Details</a></td>
 			</tr>
 <?php
 	endforeach;

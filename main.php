@@ -16,6 +16,7 @@ require_once('includes/Init.php');
 require_once('includes/Box.php');
 // Admin Pages
 require_once('includes/admin/Main.php');
+require_once('includes/admin/View.php');
 require_once('includes/admin/Orders.php');
 require_once('includes/admin/Coupons.php');
 require_once('includes/admin/Transactions.php');

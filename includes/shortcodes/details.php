@@ -44,10 +44,11 @@ Class shortcode_details {
 	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t\t".'<div class="share">';
 	  $output .= "\n\t\t\t".'<div class="fb-like" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-action="like" data-font="arial"></div>';
+	  $output .= "\n\t\t\t".'<fb:share-button type="button_count"></fb:share-button>';
 		$output .= "\n".'<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-hashtags="mydealisideal">Tweet</a>';
 		$output .= "\n".'<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
 		$output .= "\n".'<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-counter="right"></script>';
-		$output .= "\n".'<div class="g-plus" data-action="share" data-annotation="bubble"></div>';
+		$output .= "\n".'<div class="google-plus><div class="g-plus" data-action="share" data-annotation="bubble"></div>';
 	  $output .= "\n\t\t".'</div>';
 	  $output .= "\n\t".'</div>';
 	  $output .= "\n".'</form>';

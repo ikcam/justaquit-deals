@@ -4,6 +4,24 @@ if(!defined('JUSTAQUIT_DEALS')){
 	die();
 }
 
+function get_provider($ID){
+	global $wpdb;
+	$table = $wpdb->prefix.'providers';
+
+	$query = "SELECT * FROM $table WHERE ID = %d";
+
+	return $wpdb->get_row($wpdb->prepare($query, $ID));
+}
+
+function get_providers(){
+	global $wpdb;
+	$table = $wpdb->prefix.'providers';
+
+	$query = "SELECT * FROM $table ORDER BY ID DESC";
+
+	return $wpdb->get_results($query);
+}
+
 function get_order($ID){
 	global $wpdb;
 	$table = $wpdb->prefix.'orders';

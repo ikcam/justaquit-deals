@@ -16,6 +16,21 @@ Class Box{
 		wp_nonce_field(plugin_basename(__FILE__), 'justaquit_deals');
 ?>
 <?php
+	$providers = get_providers();
+?>
+	<p>
+		<label for="provider">Provider:</label>
+		<select name="provider">
+<?php
+	foreach($providers as $provider):
+?>
+	<option value="<?php $provider->ID ?>"><?php echo $provider->name ?></option>
+<?php
+	endforeach;
+?>
+		</select>
+	</p>
+<?php
 	if(!get_post_meta($post->ID, '_product_quantity', TRUE))
 		$value = 0;
 	else
@@ -163,6 +178,7 @@ Class Box{
 		endif;
 		$post = get_post($post_id);
 
+		$provider    = $_POST['provider'];
 		$quantity    = $_POST['quantity'];
 		$price_real  = $_POST['price_real'];
 		$price_max   = $_POST['price_max'];
@@ -210,6 +226,7 @@ Class Box{
 		if(strtotime($post->post_date) > $expire)
 			$expire = strtotime($post->post_date);
 
+		add_post_meta($post_id, '_product_provider', $provider, TRUE)     or update_post_meta($post_id, '_product_provider', $provider);
 		add_post_meta($post_id, '_product_price_real', $price_real, TRUE) or update_post_meta($post_id, '_product_price_real', $price_real);
 		add_post_meta($post_id, '_product_price_max', $price_max, TRUE)   or update_post_meta($post_id, '_product_price_max', $price_max);
 		add_post_meta($post_id, '_product_price_min', $price_min, TRUE)   or update_post_meta($post_id, '_product_price_min', $price_min);

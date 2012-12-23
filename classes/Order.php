@@ -59,7 +59,7 @@ Class Order{
 			$data = array(
 				'email'      => $this->email,
 				'first_name' => $this->first_name,
-				'last_name'  => $this->last_name,
+				'last_name'  => $this->last_name
 			);
 			$where = array(
 				'ID' => $ID	

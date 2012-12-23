@@ -33,6 +33,24 @@ Class deals_install{
 		);";
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
+		// Providers
+		$table = $wpdb->prefix.'providers';
+		$sql = "CREATE TABLE $table (
+			ID mediumint(9) NOT NULL AUTO_INCREMENT,
+			name varchar(255) NOT NULL,
+			shortname varchar(4) NOT NULL,
+			password varchar(64) NOT NULL,
+			email varchar(100) NOT NULL,
+			address text(500) NOT NULL,
+			phone varchar(20) NOT NULL,
+			url_site varchar(100),
+			url_fb varchar(100),
+			location_lat varchar(100) NOT NULL,
+			location_long varchar(100) NOT NULL,
+			UNIQUE KEY ID (ID)
+		);";
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);		
 		// Coupons
 		$table = $wpdb->prefix.'coupons';
 		$sql = "CREATE TABLE $table (

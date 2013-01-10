@@ -18,6 +18,8 @@ Class Box{
 <?php
 	$providers = get_providers();
 	$settings = get_option('justaquit_deals');
+
+	$provider_id = get_post_meta($post->ID, '_product_provider', TRUE);
 ?>
 	<p>
 		<label for="provider">Provider:</label>
@@ -25,7 +27,7 @@ Class Box{
 <?php
 	foreach($providers as $provider):
 ?>
-	<option value="<?php $provider->ID ?>"><?php echo $provider->name ?></option>
+	<option value="<?php echo $provider->ID ?>" <?php if( $provider->ID == $provider_id ) { echo 'selected'; } ?>><?php echo $provider->name ?></option>
 <?php
 	endforeach;
 ?>

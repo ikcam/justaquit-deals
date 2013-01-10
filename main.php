@@ -24,9 +24,10 @@ require_once('includes/admin/Transactions.php');
 require_once('includes/admin/View.php');
 require_once('includes/admin/Settings.php');
 // Shortcodes
-require_once('includes/shortcodes/transaction.php');
-require_once('includes/shortcodes/checkout.php');
-require_once('includes/shortcodes/ipn.php');
 require_once('includes/shortcodes/details.php');
+require_once('includes/shortcodes/checkout.php');
 require_once('includes/shortcodes/coupons.php');
+require_once('includes/shortcodes/ipn.php');
+require_once('includes/shortcodes/provider.php');
+require_once('includes/shortcodes/transaction.php');
 ?>

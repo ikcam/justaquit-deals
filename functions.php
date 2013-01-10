@@ -22,6 +22,16 @@ function get_providers(){
 	return $wpdb->get_results($query);
 }
 
+function get_provider_by_coupon($code){
+	global $wpdb;
+
+	$coupon = get_coupon_by_code($code);
+	$order = get_order($coupon->order_id);
+	$provider = get_provider( get_post_meta($order->post_id, '_product_provider', TRUE) );
+
+	return $provider;
+}
+
 function get_order($ID){
 	global $wpdb;
 	$table = $wpdb->prefix.'orders';

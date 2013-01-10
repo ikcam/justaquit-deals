@@ -17,6 +17,7 @@ Class Box{
 ?>
 <?php
 	$providers = get_providers();
+	$settings = get_option('justaquit_deals');
 ?>
 	<p>
 		<label for="provider">Provider:</label>

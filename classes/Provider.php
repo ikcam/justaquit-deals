@@ -46,7 +46,7 @@ Class Provider{
 			'location_lat'  => $this->location_lat,
 			'location_long' => $this->location_long 
 		);
-		$format = array( '%s', '%s', '$s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
+		$format = array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
 		$wpdb->insert($table, $data, $format);
 
 		$this->ID = $wpdb->insert_id;
@@ -54,11 +54,11 @@ Class Provider{
 		return $this->ID;
 	}
 
-	public function delete_provider($ID){
+	public static function delete_provider($ID){
 		global $wpdb;
 		$table = $wpdb->prefix.'providers';
 
-		if( $this->exists($ID) ){
+		if( get_provider($ID) != NULL ){
 			$query = "DELETE FROM $table WHERE ID = %s";
 			$wpdb->query( $wpdb->prepare($query, $ID) );
 			return TRUE;
@@ -87,8 +87,8 @@ Class Provider{
 			$where = array(
 				'ID' => $ID
 			);
-			$format = array( '%s', '%s', '$s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
-			$wpdb->update($data, $table, $where, $format);
+			$format = array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
+			$wpdb->update($table, $data, $where, $format);
 			return TRUE;
 		} else {
 			return FALSE;

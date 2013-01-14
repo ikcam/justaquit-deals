@@ -37,7 +37,7 @@ Class Providers extends Deals{
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="address">Address</label></th>
-				<td><textarea id="address" name="address"></textarea></td>
+				<td><textarea id="address" name="address"></textarea><span class="description">You can use HTML here</span></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="phone">Phone</label></th>
@@ -109,7 +109,7 @@ Class Providers extends Deals{
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="address">Address</label></th>
-				<td><textarea id="address" name="address"><?php echo $provider->address ?></textarea></td>
+				<td><textarea id="address" name="address"><?php echo $provider->address ?></textarea><span class="description">You can use HTML here</span></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="phone">Phone</label></th>

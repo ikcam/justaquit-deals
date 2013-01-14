@@ -3,6 +3,9 @@ if(!defined('JUSTAQUIT_DEALS')){
 	echo 'Hello world.';
 	die();
 }
+
+define( 'JUSTAQUIT_DEALS_PATH', plugin_dir_path(__FILE__) );
+
 // Functions
 require_once('functions.php');
 // Install

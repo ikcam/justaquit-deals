@@ -16,9 +16,13 @@ Class shortcode_provider{
 		$output .= $provider->address."<br />";
 		$output .= $provider->phone."<br />";
 		$output .= "<br />";
-		$output .= '<a href="'.$provider->url_site.'">'.$provider->url_site.'</a><br />';
-		$output .= '<a href="'.$provider->url_fb.'">'.$provider->url_fb.'</a><br />';
-		$output .= "<br />";
+		if( $provider->url_site != null ){
+			$output .= '<a href="'.$provider->url_site.'">'.$provider->url_site.'</a><br />';
+		}
+		if( $provider->url_fb != null ) {
+			$output .= '<a href="'.$provider->url_fb.'">'.$provider->url_fb.'</a><br />';
+			$output .= "<br />";
+		}
 		$output .= '[gmaps lat="'.$provider->location_lat.'" lng="'.$provider->location_long.'"][gmarker lat="'.$provider->location_lat.'" lng="'.$provider->location_long.'" title="'.$provider->name.'"]<strong>'.$provider->name.'</strong><br />'.$provider->address.'<br />'.$provider->phone.'[/gmarker][/gmaps]';
 
 		return do_shortcode($output);

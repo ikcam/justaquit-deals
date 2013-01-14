@@ -23,10 +23,8 @@ function get_providers(){
 }
 
 function get_provider_by_coupon($code){
-	global $wpdb;
-
-	$coupon = get_coupon_by_code($code);
-	$order = get_order($coupon->order_id);
+	$coupon   = get_coupon_by_code($code);
+	$order    = get_order($coupon->order_id);
 	$provider = get_provider( get_post_meta($order->post_id, '_product_provider', TRUE) );
 
 	return $provider;
@@ -48,6 +46,14 @@ function get_orders(){
 	$query = "SELECT * FROM $table ORDER BY ID DESC;";
 
 	return $wpdb->get_results($query);
+}
+
+function get_product_by_coupon($code){
+	$coupon  = get_coupon_by_code($code);
+	$order   = get_order($coupon->order_id);
+	$product = get_post($order->post_id);
+
+	return $product;
 }
 
 function get_transaction($ID){

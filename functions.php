@@ -24,6 +24,8 @@ function get_providers(){
 
 function get_provider_by_coupon($code){
 	$coupon   = get_coupon_by_code($code);
+	if( $coupon == NULL )
+		return NULL;
 	$order    = get_order($coupon->order_id);
 	$provider = get_provider( get_post_meta($order->post_id, '_product_provider', TRUE) );
 
@@ -39,6 +41,15 @@ function get_order($ID){
 	return $wpdb->get_row($wpdb->prepare($query, $ID));
 }
 
+function get_order_by_coupon($code){
+	$coupon = get_coupon_by_code($code);
+	if( $coupon == NULL )
+		return NULL;
+	$order = get_order($coupon->order_id);
+
+	return $order;
+}
+
 function get_orders(){
 	global $wpdb;
 	$table = $wpdb->prefix.'orders';
@@ -50,6 +61,8 @@ function get_orders(){
 
 function get_product_by_coupon($code){
 	$coupon  = get_coupon_by_code($code);
+	if( $coupon == NULL )
+		return NULL;
 	$order   = get_order($coupon->order_id);
 	$product = get_post($order->post_id);
 

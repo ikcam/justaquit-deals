@@ -20,10 +20,13 @@ Class shortcode_coupons{
 			if( $coupon != NULL ):
 				// Pass: Valid coupon
 				$provider = get_provider_by_coupon($coupon->code);
+				$product = get_product_by_coupon($coupon->code);
 ?>
 	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+		<input type="hidden" name="provider" id="provider" value="<?php echo $provider->ID ?>">
 		<p>
-			<strong>Product Name:</strong><span><?php echo $product->post_name ?></span>
+			<strong>Provider:</strong><span><?php echo $provider->name ?></span><br />
+			<strong>Product:</strong><span><?php echo $product->post_title ?></span><br />
 		</p>
 		<p>
 			<label for="code">Code:</label>

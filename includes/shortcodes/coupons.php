@@ -12,7 +12,24 @@ Class shortcode_coupons{
 	public function shortcode(){
 		if( isset($_POST['submit']) ):
 			// Pass: Usage coupon page
+			$coupon = get_coupon_by_code($_POST['code']);
+			if( $coupon != NULL ):
+				// Pass: Verify is coupon is valid.
+				if( $coupon->status == 0 ):
+					// Pass: Valid coupon
+					// Show coupon information
+					
+					// Set coupon as used.
+					Coupon::set_active($coupon->ID);
+				else:
+					// Error: Coupon already used.
+					// Show coupon information
 
+				endif;
+			else:
+				// Error: Coupon code not valid.
+				echo 'Error: Invalid coupon code.';
+			endif;
 		elseif( isset($_GET['coupon']) ):
 			// Pass: Form Page
 			$coupon = get_coupon_by_code($_GET['coupon']);
@@ -23,19 +40,26 @@ Class shortcode_coupons{
 				$product = get_product_by_coupon($coupon->code);
 ?>
 	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-		<input type="hidden" name="provider" id="provider" value="<?php echo $provider->ID ?>">
-		<p>
-			<strong>Provider:</strong><span><?php echo $provider->name ?></span><br />
-			<strong>Product:</strong><span><?php echo $product->post_title ?></span><br />
-		</p>
-		<p>
-			<label for="code">Code:</label>
-			<input type="text" name="code" id="code" readonly="readonly" value="<?php echo $coupon->code ?>" />
-		</p>
-		<p>
-			<label for="password">Password:</label>
-			<input type="password" name="password" id="password" required />
-		</p>
+		<table class="form-table">
+		<tbody>
+			<tr>
+				<td><strong>Provider:</strong></td>
+				<td><span><?php echo $provider->name ?></span></td>
+			</tr>
+			<tr>
+				<td><strong>Product:</strong></td>
+				<td><span><?php echo $product->post_title ?></span></td>
+			</tr>
+			<tr>
+				<td><label for="code">Code:</label></td>
+				<td><input type="text" name="code" id="code" readonly="readonly" value="<?php echo $coupon->code ?>" /></td>
+			</tr>
+			<tr>
+				<td><label for="password">Password:</label></td>
+				<td><input type="password" name="password" id="password" required /></td>
+			</tr>
+		</tbody>
+		</table>
 		<p>
 			<input type="submit" name="submit" id="submit" value="Use Coupon" />
 		</p>

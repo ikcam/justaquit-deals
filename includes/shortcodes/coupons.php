@@ -30,7 +30,7 @@ Class shortcode_coupons{
 		</p>
 		<p>
 			<label for="code">Code:</label>
-			<input type="text" name="code" id="code" readonly="readonly" value="<?php $coupon->code ?>" />
+			<input type="text" name="code" id="code" readonly="readonly" value="<?php echo $coupon->code ?>" />
 		</p>
 		<p>
 			<label for="password">Password:</label>

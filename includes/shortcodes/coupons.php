@@ -13,7 +13,7 @@ Class shortcode_coupons{
 		if( isset($_POST['submit']) ):
 			// Pass: Usage coupon page
 
-		elseif( isset($GET['coupon']) ):
+		elseif( isset($_GET['coupon']) ):
 			// Pass: Form Page
 			$coupon = get_coupon_by_code($_GET['coupon']);
 

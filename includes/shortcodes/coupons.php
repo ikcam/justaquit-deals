@@ -34,7 +34,7 @@ Class shortcode_coupons{
 				$provider = get_provider_by_coupon($coupon->code);
 				$product = get_product_by_coupon($coupon->code);
 ?>
-	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+	<form action="" method="post">
 		<table class="form-table">
 		<tbody>
 			<tr>
@@ -69,7 +69,7 @@ Class shortcode_coupons{
 		else:
 			// Error: No coupon code setup
 ?>
-	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="get">
+	<form action="" method="get">
 		<table class="form-table">
 		<tbody>
 			<tr>

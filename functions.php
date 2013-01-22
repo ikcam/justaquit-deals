@@ -118,7 +118,7 @@ function get_coupon_by_code($code){
 	global $wpdb;
 	$table = $wpdb->prefix.'coupons';
 
-	$query = "SELECT * FROM $table WHERE code = %s;";
+	$query = "SELECT * FROM $table WHERE UCASE(code) LIKE %s;";
 
 	return $wpdb->get_row($wpdb->prepare($query, $code));
 }

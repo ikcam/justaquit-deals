@@ -39,7 +39,7 @@ Class shortcode_coupons{
 <?php
 			else:
 ?>
-	<h3>Status: <?php if( $coupon->status == 0 ){ echo 'Not used.' } else { echo 'Used.' } ?></h3>
+	<h3>Status: <?php if( $coupon->status == 0 ){ echo 'Not used.'; } else { echo 'Used.'; } ?></h3>
 <?php
 	if( $coupon->status == 0 ):
 ?>

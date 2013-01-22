@@ -11,13 +11,6 @@ Class shortcode_coupons{
 
 	public function shortcode(){
 		if( isset( $_POST['redem'] ) ):
-			$coupon = get_coupon_by_code( $_POST['code'] );
-			if( $coupon->status == 0 ):
-				Coupon::set_active($coupon->ID);
-				echo 'Congratulations. You activated this coupon succesfully.';
-			else:
-				echo 'Error: This coupon was use already.';
-			endif;
 		if( isset($_POST['submit']) || isset( $_POST['redem'] ) ):
 			$coupon = get_coupon_by_code( $_POST['code'] );
 
@@ -39,6 +32,13 @@ Class shortcode_coupons{
 	</form>
 <?php
 			else:
+
+				if( $coupon->status == 0 ):
+					Coupon::set_active($coupon->ID);
+					echo 'Congratulations. You activated this coupon succesfully.';
+				else:
+					echo 'Error: This coupon was use already.';
+				endif;
 ?>
 	<h3>Status: <?php if( $coupon->status == 0 ){ echo 'Not used.'; } else { echo 'Used.'; } ?></h3>
 <?php

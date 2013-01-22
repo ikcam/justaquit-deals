@@ -18,7 +18,7 @@ Class shortcode_coupons{
 			if( $provider->password == $_POST['password'] ):
 				// Pass: Valid password.
 				// Verify if is a valid coupon.
-				if( $coupon->status == 0 )
+				if( $coupon->status == 0 ):
 					// Show coupon information.
 ?>
 	<h3 id="coupon">Coupon Information</h3>

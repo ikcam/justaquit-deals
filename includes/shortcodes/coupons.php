@@ -39,10 +39,19 @@ Class shortcode_coupons{
 <?php
 			else:
 ?>
-	<h3>
-
-	</h3>
-
+	<h3>Status: <?php if( $coupon->status == 0 ){ echo 'Not used.' } else { echo 'Used.' } ?></h3>
+<?php
+	if( $coupon->status == 0 ):
+?>
+	<p class="form-submit">
+		<form action="" method="post">
+			<input type="hidden" name="coupon" value="<?php echo $coupon->ID ?>" />
+			<input type="submit" name="redem" id="redem" value="Redem this coupon" />
+		</form>
+	</p>
+<?php
+	endif;
+?>
 	<h3 id="coupon">Coupon Information</h3>
 	<p>
 	<table class="form-table">

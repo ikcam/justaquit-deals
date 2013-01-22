@@ -174,7 +174,7 @@ Class shortcode_coupons{
 		<tbody>
 			<tr>
 				<th scope="row"><label for="code">Coupon Code:</label></th>
-				<td><input type="text" name="code" id="code" required /></td>
+				<td><input type="text" name="code" id="code" required <?php if( isset( $_GET['coupon'] ) ) { echo 'value="'.$_GET['coupon'].'"'; } ?> /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" name="submit" id="submit" value="View coupon" />

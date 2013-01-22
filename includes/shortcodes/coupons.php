@@ -17,10 +17,16 @@ Class shortcode_coupons{
 
 			if( $provider->password == $_POST['password'] ):
 				// Pass: Valid password.
-				// Show coupon information.
-				
-				// Set coupon as active.
-				Coupon::set_active($coupon->ID);
+				// Verify if is a valid coupon.
+				if( $coupon->status == 0 )
+					// Show coupon information.
+					echo 'This is a valid coupon.';
+					// Set coupon as active.
+					Coupon::set_active($coupon->ID);
+				else:
+					// Error: Invalid coupon.
+					echo 'This coupon was already used.';
+				endif;
 			else:
 				// Error: Wrong password
 				echo 'Error: Wrong password';

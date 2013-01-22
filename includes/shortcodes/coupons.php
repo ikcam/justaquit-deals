@@ -31,12 +31,13 @@ Class shortcode_coupons{
 	</form>
 <?php
 			else:
-
-				if( isset( $_POST['redem'] ) && $coupon->status == 0 ):
-					Coupon::set_active($coupon->ID);
-					echo 'Congratulations. You activated this coupon succesfully.';
-				else:
-					echo 'Error: This coupon was use already.';
+				if( isset( $_POST['redem'] ) ):
+					if( $coupon->status == 0 ):
+						Coupon::set_active($coupon->ID);
+						echo 'Congratulations. You activated this coupon succesfully.';
+					else:
+						echo 'Error: This coupon was use already.';
+					endif;
 				endif;
 ?>
 	<h3>Status: <?php if( $coupon->status == 0 ){ echo 'Not used.'; } else { echo 'Used.'; } ?></h3>

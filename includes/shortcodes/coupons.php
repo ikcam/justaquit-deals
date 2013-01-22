@@ -13,22 +13,17 @@ Class shortcode_coupons{
 		if( isset($_POST['submit']) ):
 			// Pass: Usage coupon page
 			$coupon = get_coupon_by_code($_POST['code']);
-			if( $coupon != NULL ):
-				// Pass: Verify is coupon is valid.
-				if( $coupon->status == 0 ):
-					// Pass: Valid coupon
-					// Show coupon information
-					
-					// Set coupon as used.
-					Coupon::set_active($coupon->ID);
-				else:
-					// Error: Coupon already used.
-					// Show coupon information
+			$provider = get_provider_by_coupon($coupon->code);
 
-				endif;
+			if( $provider->password == $_POST['password'] ):
+				// Pass: Valid password.
+				// Show coupon information.
+				
+				// Set coupon as active.
+				Coupon::set_active($coupon->ID);
 			else:
-				// Error: Coupon code not valid.
-				echo 'Error: Invalid coupon code.';
+				// Error: Wrong password
+				echo 'Error: Wrong password';
 			endif;
 		elseif( isset($_GET['coupon']) ):
 			// Pass: Form Page
@@ -43,11 +38,11 @@ Class shortcode_coupons{
 		<table class="form-table">
 		<tbody>
 			<tr>
-				<td><strong>Provider:</strong></td>
+				<td><strong>Provider Name:</strong></td>
 				<td><span><?php echo $provider->name ?></span></td>
 			</tr>
 			<tr>
-				<td><strong>Product:</strong></td>
+				<td><strong>Product Name:</strong></td>
 				<td><span><?php echo $product->post_title ?></span></td>
 			</tr>
 			<tr>
@@ -58,11 +53,13 @@ Class shortcode_coupons{
 				<td><label for="password">Password:</label></td>
 				<td><input type="password" name="password" id="password" required /></td>
 			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" name="submit" id="submit" value="Use Coupon" />
+				</td>
+			</tr>
 		</tbody>
 		</table>
-		<p>
-			<input type="submit" name="submit" id="submit" value="Use Coupon" />
-		</p>
 	</form>
 <?php
 			else:
@@ -71,7 +68,21 @@ Class shortcode_coupons{
 			endif;
 		else:
 			// Error: No coupon code setup
-			echo 'Error: No coupon code is setup';
+?>
+	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="get">
+		<table class="form-table">
+		<tbody>
+			<tr>
+				<td><label for="code"´>Coupon Code: </label></td>
+				<td><input type="text" name="coupon" id="coupon" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Go" /></td>
+			</tr>
+		</tbody>
+		</table>
+	</form>
+<?php
 		endif;
 	}
 }

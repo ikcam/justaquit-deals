@@ -11,15 +11,16 @@ Class shortcode_coupons{
 
 	public function shortcode(){
 		if( isset( $_POST['redem'] ) ):
-			$coupon = get_coupon( $_POST['coupon'] );
+			$coupon = get_coupon_by_code( $_POST['code'] );
 			if( $coupon->status == 0 ):
 				Coupon::set_active($coupon->ID);
 				echo 'Congratulations. You activated this coupon succesfully.';
 			else:
 				echo 'Error: This coupon was use already.';
 			endif;
-		elseif( isset($_POST['submit']) ):
+		if( isset($_POST['submit']) || isset( $_POST['redem'] ) ):
 			$coupon = get_coupon_by_code( $_POST['code'] );
+
 			if( $coupon == NULL ):
 				echo 'Invalid coupon code.';
 ?>
@@ -45,7 +46,7 @@ Class shortcode_coupons{
 ?>
 	<p class="form-submit">
 		<form action="" method="post">
-			<input type="hidden" name="coupon" value="<?php echo $coupon->ID ?>" />
+			<input type="hidden" name="code" value="<?php echo $coupon->code ?>" />
 			<input type="submit" name="redem" id="redem" value="Redem this coupon" />
 		</form>
 	</p>
@@ -156,7 +157,7 @@ Class shortcode_coupons{
 ?>
 	<p class="form-submit">
 		<form action="" method="post">
-			<input type="hidden" name="coupon" value="<?php echo $coupon->ID ?>" />
+			<input type="hidden" name="code" value="<?php echo $coupon->code ?>" />
 			<input type="submit" name="redem" id="redem" value="Redem this coupon" />
 		</form>
 	</p>

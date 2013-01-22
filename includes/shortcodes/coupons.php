@@ -22,8 +22,27 @@ Class shortcode_coupons{
 			$coupon = get_coupon_by_code( $_POST['code'] );
 			if( $coupon == NULL ):
 				echo 'Invalid coupon code.';
+?>
+	<form action="" method="post">
+		<table class="form-table">
+		<tbody>
+			<tr>
+				<th scope="row"><label for="code">Coupon Code:</label></th>
+				<td><input type="text" name="code" id="code" required /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" name="submit" id="submit" value="View coupon" />
+			</tr>
+		</tbody>
+		</table>
+	</form>
+<?php
 			else:
 ?>
+	<h3>
+
+	</h3>
+
 	<h3 id="coupon">Coupon Information</h3>
 	<p>
 	<table class="form-table">

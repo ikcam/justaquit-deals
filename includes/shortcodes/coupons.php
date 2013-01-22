@@ -32,7 +32,7 @@ Class shortcode_coupons{
 <?php
 			else:
 
-				if( $coupon->status == 0 ):
+				if( isset( $_POST['redem'] ) && $coupon->status == 0 ):
 					Coupon::set_active($coupon->ID);
 					echo 'Congratulations. You activated this coupon succesfully.';
 				else:

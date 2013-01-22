@@ -36,10 +36,11 @@ Class shortcode_coupons{
 			<th scope="row">Usage Date:</th>
 			<td>
 <?php
-	if( $coupon->status == 0 )
+	if( $coupon->status == 0 ):
 		echo 'None yet';
-	else
+	else:
 		echo date( 'H:i m/d/y', $coupon->usage_date );
+	endif;
 ?>
 			</td>
 		</tr>

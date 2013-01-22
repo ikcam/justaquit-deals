@@ -34,9 +34,10 @@ Class shortcode_coupons{
 				if( isset( $_POST['redem'] ) ):
 					if( $coupon->status == 0 ):
 						Coupon::set_active($coupon->ID);
-						echo 'Congratulations. You activated this coupon succesfully.';
+						echo '<h5>Congratulations. You activated this coupon succesfully.</h5>';
+						$coupon = get_coupon($coupon->ID);
 					else:
-						echo 'Error: This coupon was use already.';
+						echo '<h5>Error: This coupon was use already.</h5>';
 					endif;
 				endif;
 ?>

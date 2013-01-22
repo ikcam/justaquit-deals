@@ -10,7 +10,6 @@ Class shortcode_coupons{
 	}
 
 	public function shortcode(){
-		if( isset( $_POST['redem'] ) ):
 		if( isset($_POST['submit']) || isset( $_POST['redem'] ) ):
 			$coupon = get_coupon_by_code( $_POST['code'] );
 

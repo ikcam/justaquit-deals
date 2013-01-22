@@ -132,8 +132,8 @@ Class shortcode_coupons{
 ?>
 	<p class="form-submit">
 		<form action="" method="post">
-			<input type="hiden" name="coupon" value="<?php echo $coupon->ID ?>" />
-			<input type="text" name="redem" id="redem" value="Redem this coupon" />
+			<input type="hidden" name="coupon" value="<?php echo $coupon->ID ?>" />
+			<input type="submit" name="redem" id="redem" value="Redem this coupon" />
 		</form>
 	</p>
 <?php

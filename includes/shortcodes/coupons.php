@@ -261,7 +261,7 @@ Class shortcode_coupons{
 			</tr>
 			<tr>
 				<td><label for="password">Password:</label></td>
-				<td><input type="password" name="password" id="password" required /></td>
+				<td><input type="password" name="password" id="password" pattern= "[0-9] {4}" required /></td>
 			</tr>
 			<tr>
 				<td colspan="2">

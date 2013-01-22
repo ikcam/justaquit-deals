@@ -126,16 +126,16 @@ Class shortcode_coupons{
 <?
 				if( $coupon->status == 0 ):
 ?>
-	<p class="form-submit">Used coupon.</p>
-<?php
-				else:
-?>
 	<p class="form-submit">
 		<form action="" method="post">
 			<input type="hidden" name="coupon" value="<?php echo $coupon->ID ?>" />
 			<input type="submit" name="redem" id="redem" value="Redem this coupon" />
 		</form>
 	</p>
+<?php
+				else:
+?>
+	<p class="form-submit">Used coupon.</p>
 <?php
 				endif;
 			endif;
